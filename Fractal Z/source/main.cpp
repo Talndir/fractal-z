@@ -144,6 +144,7 @@ int main()
 			origin.y += 0.04 / zoom;
 		if (keys[GLFW_KEY_DOWN])
 			origin.y -= 0.04 / zoom;
+
 		if (keys[GLFW_KEY_M])
 		{
 			mode = 1;
@@ -154,7 +155,11 @@ int main()
 			mode = 2;
 			bChangeMode = true;
 		}
-		
+		if (keys[GLFW_KEY_N])
+		{
+			mode = 3;
+			bChangeMode = true;
+		}
 
 		// Draw to window
 		glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
@@ -170,29 +175,19 @@ int main()
 			case 2:
 				myShader = Shader("shaders/julia_1/julia_1_vertex.glsl", "shaders/julia_1/julia_1_fragment.glsl");
 				break;
+			case 3:
+				myShader = Shader("shaders/newton_1/newton_1_vertex.glsl", "shaders/newton_1/newton_1_fragment.glsl");
+				break;
 			}
-
-			/*
-			switch (mode)
-			{
-			case 1:
-			myShader.init("shaders/mandelbrot_1/mandelbrot_1_vertex.glsl", "shaders/mandelbrot_1/mandelbrot_1_fragment.glsl");
-			break;
-			case 2:
-			myShader.init("shaders/julia_1/julia_1_vertex.glsl", "shaders/julia_1/julia_1_fragment.glsl");
-			break;
-			}
-			*/
 
 			c = origin;
 			origin = glm::vec2(0.0f, 0.0f);
 			zoom = 1;
-			std::cout << mode << std::endl;
 
 			bChangeMode = false;
 		}
 
-		if (keys[GLFW_KEY_M] || keys[GLFW_KEY_J])
+		if (keys[GLFW_KEY_M] || keys[GLFW_KEY_J] || keys[GLFW_KEY_N])
 			bCannotChangeMode = true;
 		else
 		{
@@ -200,7 +195,7 @@ int main()
 			bChangeMode = false;
 		}
 
-		std::cout << mode << std::endl;
+		glViewport(0, 0, windowWidth, windowHeight);
 
 		myShader.use();
 		

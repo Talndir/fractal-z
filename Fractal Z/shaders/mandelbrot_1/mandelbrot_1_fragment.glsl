@@ -62,10 +62,8 @@ void main()
 		colour = vec4(0.0f, 0.0f, 0.0f, 1.0f);
 	else
 	{
-		float ifloat = i % 360;
+		float ifloat = i;
 		float hue = ifloat / maxIterations;
 		colour = hsv_to_rgb(hue, 1.0f, 1.0f, 1.0f);
 	}
-
-	//colour = vec4(1.0f, 0.0f, 0.0f, 1.0f);
 }

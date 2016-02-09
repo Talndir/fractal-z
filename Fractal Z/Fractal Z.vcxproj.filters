@@ -31,6 +31,18 @@
     <None Include="shaders\julia_1\julia_1_vertex.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="shaders\gui\gui_vertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\gui\gui_fragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\newton_1\newton_1_vertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\newton_1\newton_1_fragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">

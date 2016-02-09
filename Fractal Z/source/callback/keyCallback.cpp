@@ -29,9 +29,8 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 			mode = 1;
 		else if (key == GLFW_KEY_J)
 			mode = 2;
-
-		//std::cout << key << std::endl;
-		//std::cout << mode << std::endl;
+		else if (key == GLFW_KEY_N)
+			mode = 3;
 
 		break;
 	case GLFW_RELEASE:
