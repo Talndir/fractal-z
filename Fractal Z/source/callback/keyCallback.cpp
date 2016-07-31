@@ -16,14 +16,27 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		keys.at(key) = true;
 
 		if (key == GLFW_KEY_Q)
+		{
 			zoom *= 2;
+			rendermodeLR = ALL;
+			bRenderAllNow = true;
+		}
 		else if (key == GLFW_KEY_W)
+		{
 			zoom /= 2;
+			rendermodeLR = ALL;
+			bRenderAllNow = true;
+		}
 		else if (key == GLFW_KEY_R)
 		{
 			zoom = 1;
-			origin.x = 0.0f;
-			origin.y = 0.0f;
+			origin = glm::vec2(0.0f, 0.0f);
+			offset = glm::ivec2(0, 0);
+			majorOffset = glm::ivec2(0, 0);
+			colourOffset = 0.0f;
+			colourScale = 1.0f;
+			rendermodeLR = ALL;
+			bRenderAllNow = true;
 		}
 		else if (key == GLFW_KEY_M)
 			mode = 1;
@@ -31,6 +44,10 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 			mode = 2;
 		else if (key == GLFW_KEY_N)
 			mode = 3;
+		else if (key == GLFW_KEY_C)
+			mode = 4;
+		else if (key == GLFW_KEY_SPACE)
+			bChangeColour = !bChangeColour;
 
 		break;
 	case GLFW_RELEASE:

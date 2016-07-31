@@ -43,6 +43,39 @@
     <None Include="shaders\newton_1\newton_1_fragment.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="shaders\collatz_1\collatz_1_fragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\collatz_1\collatz_1_vertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\mandelbrot_2\mandelbrot_2_compute.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\mandelbrot_2\mandelbrot_2_vertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\mandelbrot_2\mandelbrot_2_fragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\julia_2\julia_2_vertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\julia_2\julia_2_compute.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\julia_2\julia_2_fragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\newton_2\newton_2_vertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\newton_2\newton_2_compute.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\newton_2\newton_2_fragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">
@@ -54,6 +87,12 @@
     <ClCompile Include="source\callback\keyCallback.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\shader\computeShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\external.h">
@@ -63,6 +102,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\callback\keyCallback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\shader\computeShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
