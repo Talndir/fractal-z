@@ -1,31 +1,15 @@
-// ===============================================================
-/*
-extern.h
-
-Holds all external variables (global, defined in main.cpp, declared wherever this header is included)
-*/
-
-// ===============================================================
 #pragma once
 
-// ===============================================================
-/* Includes */
-#include <vector>	// Vectors for keystates
-
-#include <GLM\glm.hpp>
-
-// ===============================================================
-/* The variables */
-extern std::vector<bool> keys;		// Holds state for all keys (1 = pressed, 0 = not pressed)
-extern float zoom;
-extern glm::vec2 origin;
-extern int mode;					// 1 = Mandelbrot, 2 = Julia, 3 = Newton, 4 = Collatz
-extern glm::ivec2 offset;
-extern glm::ivec2 majorOffset;
-enum ERENDERMODE { NONE, ALL, LEFT, RIGHT, TOP, BOTTOM };
-extern ERENDERMODE rendermodeLR;
-extern ERENDERMODE rendermodeTB;
-extern bool bRenderAllNow;
-extern bool bChangeColour;
-extern float colourOffset;
-extern float colourScale;
+#define WINDOW_WIDTH 1280															// Window width in pixels
+#define WINDOW_HEIGHT 720															// Window height in pixels
+#define RATIO float(float(WINDOW_WIDTH) / float(WINDOW_HEIGHT))						// Aspect ratio (16:9)
+#define BLOCK_WIDTH 16																// Width of each block
+#define BLOCK_HEIGHT 16																// Height of each block
+#define BLOCKS_HORIZONTAL (WINDOW_WIDTH / BLOCK_WIDTH)								// Number of blocks horizontally
+#define BLOCKS_VERTICAL (WINDOW_HEIGHT / BLOCK_HEIGHT)								// Number of blocks vertically
+#define BLOCKS_EXTRA_HORIZONTAL 1													// Extra horizontal buffer blocks
+#define BLOCKS_EXTRA_VERTICAL 1														// Extra vertical buffer blocks
+#define BLOCKS_TOTAL_HORIZONTAL (BLOCKS_HORIZONTAL + (2 * BLOCKS_EXTRA_HORIZONTAL))	// Total horizontal blocks
+#define BLOCKS_TOTAL_VERTICAL (BLOCKS_VERTICAL + (2 * BLOCKS_EXTRA_VERTICAL))		// Total vertical blocks
+#define IMAGE_WIDTH (BLOCKS_TOTAL_HORIZONTAL * BLOCK_WIDTH)							// Width of entire render area
+#define IMAGE_HEIGHT (BLOCKS_TOTAL_VERTICAL * BLOCK_HEIGHT)							// Height of entire render area
