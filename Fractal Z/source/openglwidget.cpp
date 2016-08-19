@@ -91,28 +91,31 @@ void OpenGLWidget::initializeGL()
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	// Shaders
-	computeProgram = new QOpenGLShaderProgram();
-	computeProgram->addShaderFromSourceFile(QOpenGLShader::Compute, "shaders/test/test_compute.glsl");
-	computeProgram->link();
+	fractal = Fractal();
 
-	renderProgram = new QOpenGLShaderProgram();
-	renderProgram->addShaderFromSourceFile(QOpenGLShader::Vertex, "shaders/test/test_vertex.glsl");
-	renderProgram->addShaderFromSourceFile(QOpenGLShader::Fragment, "shaders/test/test_fragment.glsl");
-	renderProgram->link();
+	fractal.init();
 
-	computeProgram->bind();
+	fractal.addComputeVariable("WINDOW_WIDTH", "WINDOW_WIDTH", WINDOW_WIDTH, WINDOW_WIDTH, WINDOW_WIDTH, WINDOW_WIDTH, false);
+	fractal.copyComputeVariableToRender();
+	fractal.addComputeVariable("WINDOW_HEIGHT", "WINDOW_HEIGHT", WINDOW_HEIGHT, WINDOW_HEIGHT, WINDOW_HEIGHT, WINDOW_HEIGHT, false);
+	fractal.copyComputeVariableToRender();
+	
+	fractal.addRenderVariable("BLOCK_WIDTH", "BLOCK_WIDTH", BLOCK_WIDTH, BLOCK_WIDTH, BLOCK_WIDTH, BLOCK_WIDTH, false);
+	fractal.addRenderVariable("BLOCK_HEIGHT", "BLOCK_HEIGHT", BLOCK_HEIGHT, BLOCK_HEIGHT, BLOCK_HEIGHT, BLOCK_HEIGHT, false);
+
+	fractal.computeProgram->bind();
 	glBindImageTexture(0, tex[0], 0, GL_FALSE, 0, GL_READ_WRITE, GL_R32F);
-	computeProgram->release();
+	fractal.computeProgram->release();
 
-	renderProgram->bind();
+	fractal.renderProgram->bind();
 	m_vao.bind();
 	m_vvbo.bind();
-	renderProgram->enableAttributeArray("position");
-	renderProgram->setAttributeBuffer("position", GL_FLOAT, 0, 3);
+	fractal. renderProgram->enableAttributeArray("position");
+	fractal.renderProgram->setAttributeBuffer("position", GL_FLOAT, 0, 3);
 	m_vvbo.release();
 	m_vao.release();
 	glBindImageTexture(0, tex[0], 0, GL_FALSE, 0, GL_READ_WRITE, GL_R32F);
-	renderProgram->release();
+	fractal.renderProgram->release();
 
 	updateTimer = new QTimer(this);
 	updateTimer->setInterval(1000.f / 30.f);
@@ -130,18 +133,13 @@ void OpenGLWidget::paintGL()
 
 	glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
 
-	renderProgram->bind();
-
-	renderProgram->setUniformValue("WINDOW_WIDTH", WINDOW_WIDTH);
-	renderProgram->setUniformValue("WINDOW_HEIGHT", WINDOW_HEIGHT);
-	renderProgram->setUniformValue("BLOCKS_EXTRA_HORIZONTAL", BLOCKS_EXTRA_HORIZONTAL);
-	renderProgram->setUniformValue("BLOCKS_EXTRA_VERTICAL", BLOCKS_EXTRA_VERTICAL);
+	fractal.beginRender();
 
 	m_vao.bind();
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 	m_vao.release();
 
-	renderProgram->release();
+	fractal.endRender();
 }
 
 void OpenGLWidget::keyPressEvent(QKeyEvent* event)
@@ -155,12 +153,9 @@ void OpenGLWidget::drawFrame()
 
 void OpenGLWidget::runCompute()
 {
-	computeProgram->bind();
-
-	computeProgram->setUniformValue("WINDOW_WIDTH", WINDOW_WIDTH);
-	computeProgram->setUniformValue("WINDOW_HEIGHT", WINDOW_HEIGHT);
+	fractal.beginCompute();
 
 	glDispatchCompute(BLOCKS_TOTAL_HORIZONTAL, BLOCKS_TOTAL_VERTICAL, 1);
 
-	computeProgram->release();
+	fractal.endCompute();
 }

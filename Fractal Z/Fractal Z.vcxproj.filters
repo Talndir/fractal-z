@@ -38,6 +38,15 @@
     <ClInclude Include="header\external.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\fractal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\variableabstract.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\variabletyped.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="header\openglwidget.h">
@@ -55,6 +64,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\openglwidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\fractal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\variableabstract.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

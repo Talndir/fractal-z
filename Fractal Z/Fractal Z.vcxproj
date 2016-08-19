@@ -12,6 +12,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\external.h" />
+    <ClInclude Include="header\fractal.h" />
+    <ClInclude Include="header\variableabstract.h" />
+    <ClInclude Include="header\variabletyped.h" />
     <CustomBuild Include="header\openglwidget.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing openglwidget.h...</Message>
@@ -30,8 +33,10 @@
     <ClCompile Include="GeneratedFiles\Release\moc_openglwidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="source\fractal.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\openglwidget.cpp" />
+    <ClCompile Include="source\variableabstract.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\test\test_compute.glsl" />

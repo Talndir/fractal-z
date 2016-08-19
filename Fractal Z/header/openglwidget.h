@@ -1,19 +1,5 @@
 #pragma once
 
-/*
-#include <QtWidgets/QOpenGLWidget>
-#include <QtGui/QKeyEvent>
-#include <QtGui/QOpenGLFunctions_4_4_Core>
-#include <QtWidgets/QApplication>
-
-#include <QtGui/QOpenGLShaderProgram>
-#include <QtGui/QOpenGlContext>
-#include <QtGui/QOpenGlBuffer>
-#include <QtGui/QOpenGLVertexArrayObject>
-
-#include <QtCore/QTimer>
-*/
-
 #include <QtWidgets/QOpenGLWidget>
 #include <QtGui/QOpenGLFunctions_4_4_Core>
 #include <QtGui/QOpenGLVertexArrayObject>
@@ -22,6 +8,7 @@
 #include <QtCore/QTimer>
 
 #include "../header/external.h"
+#include "../header/fractal.h"
 
 class OpenGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_4_4_Core
 {
@@ -54,6 +41,5 @@ private:
 
 	QTimer* updateTimer;
 
-	QOpenGLShaderProgram* computeProgram;
-	QOpenGLShaderProgram* renderProgram;
+	Fractal fractal;
 };
