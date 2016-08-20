@@ -6,6 +6,9 @@
 
 #include "../header/openglwidget.h"
 
+QScrollArea* pane;
+QVBoxLayout* paneLayout;
+
 int main(int argc, char ** argv)
 {
 	QApplication app(argc, argv);
@@ -19,6 +22,21 @@ int main(int argc, char ** argv)
 	OpenGLWidget window;
 	window.setFormat(format);
 	window.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+	pane = new QScrollArea(&window);
+	pane->setStyleSheet("background-color:white");
+	pane->setWidgetResizable(true);
+	pane->setGeometry(0, 0, WINDOW_WIDTH / 5, WINDOW_HEIGHT);
+
+	QGroupBox* box = new QGroupBox();
+	pane->setWidget(box);
+
+	paneLayout = new QVBoxLayout();
+	paneLayout->setSpacing(10);
+	paneLayout->setAlignment(Qt::AlignTop);
+
+	pane->widget()->setLayout(paneLayout);
+	pane->show();
 
 	window.show();
 

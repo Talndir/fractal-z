@@ -13,6 +13,8 @@
   <ItemGroup>
     <ClInclude Include="header\external.h" />
     <ClInclude Include="header\fractal.h" />
+    <ClInclude Include="header\property.h" />
+    <ClInclude Include="header\propertygroup.h" />
     <ClInclude Include="header\variableabstract.h" />
     <ClInclude Include="header\variabletyped.h" />
     <CustomBuild Include="header\openglwidget.h">
@@ -36,6 +38,8 @@
     <ClCompile Include="source\fractal.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\openglwidget.cpp" />
+    <ClCompile Include="source\property.cpp" />
+    <ClCompile Include="source\propertygroup.cpp" />
     <ClCompile Include="source\variableabstract.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,8 @@
 #pragma once
 
+#include <QtWidgets/QScrollArea>
+#include <QtWidgets/QVBoxLayout>
+
 #define WINDOW_WIDTH 1280															// Window width in pixels
 #define WINDOW_HEIGHT 720															// Window height in pixels
 #define RATIO float(float(WINDOW_WIDTH) / float(WINDOW_HEIGHT))						// Aspect ratio (16:9)
@@ -13,3 +16,6 @@
 #define BLOCKS_TOTAL_VERTICAL (BLOCKS_VERTICAL + (2 * BLOCKS_EXTRA_VERTICAL))		// Total vertical blocks
 #define IMAGE_WIDTH (BLOCKS_TOTAL_HORIZONTAL * BLOCK_WIDTH)							// Width of entire render area
 #define IMAGE_HEIGHT (BLOCKS_TOTAL_VERTICAL * BLOCK_HEIGHT)							// Height of entire render area
+
+extern QScrollArea* pane;
+extern QVBoxLayout* paneLayout;

@@ -10,6 +10,8 @@ uniform image2D pixels;
 uniform int WINDOW_WIDTH;
 uniform int WINDOW_HEIGHT;
 
+uniform float scalar;
+
 void main()
 {
 	ivec2 pix;
@@ -20,5 +22,5 @@ void main()
 	pix.x = int(gl_WorkGroupID.x * 16) + j;
 	pix.y = int(gl_WorkGroupID.y * 16) + k;
 
-	imageStore(pixels, pix, vec4(float(pix.x + pix.y) / float(WINDOW_WIDTH + WINDOW_HEIGHT), 0.0f, 0.0f, 1.0f));
+	imageStore(pixels, pix, vec4((float(pix.x + pix.y) / float(WINDOW_WIDTH + WINDOW_HEIGHT)) * scalar, 0.0f, 0.0f, 1.0f));
 }

@@ -47,6 +47,12 @@
     <ClInclude Include="header\variabletyped.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\property.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\propertygroup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="header\openglwidget.h">
@@ -70,6 +76,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\variableabstract.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\property.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\propertygroup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

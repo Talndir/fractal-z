@@ -99,6 +99,7 @@ void OpenGLWidget::initializeGL()
 	fractal.copyComputeVariableToRender();
 	fractal.addComputeVariable("WINDOW_HEIGHT", "WINDOW_HEIGHT", WINDOW_HEIGHT, WINDOW_HEIGHT, WINDOW_HEIGHT, WINDOW_HEIGHT, false);
 	fractal.copyComputeVariableToRender();
+	fractal.addComputeVariable("scalar", "Scalar", 0.5f, 1.0f, 0.0f, 4.0f, true);
 	
 	fractal.addRenderVariable("BLOCK_WIDTH", "BLOCK_WIDTH", BLOCK_WIDTH, BLOCK_WIDTH, BLOCK_WIDTH, BLOCK_WIDTH, false);
 	fractal.addRenderVariable("BLOCK_HEIGHT", "BLOCK_HEIGHT", BLOCK_HEIGHT, BLOCK_HEIGHT, BLOCK_HEIGHT, BLOCK_HEIGHT, false);
@@ -110,7 +111,7 @@ void OpenGLWidget::initializeGL()
 	fractal.renderProgram->bind();
 	m_vao.bind();
 	m_vvbo.bind();
-	fractal. renderProgram->enableAttributeArray("position");
+	fractal.renderProgram->enableAttributeArray("position");
 	fractal.renderProgram->setAttributeBuffer("position", GL_FLOAT, 0, 3);
 	m_vvbo.release();
 	m_vao.release();
@@ -122,7 +123,6 @@ void OpenGLWidget::initializeGL()
 	connect(updateTimer, SIGNAL(timeout()), this, SLOT(drawFrame()));
 	updateTimer->start();
 
-	runCompute();
 	update();
 }
 
@@ -132,6 +132,8 @@ void OpenGLWidget::paintGL()
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
+
+	runCompute();
 
 	fractal.beginRender();
 

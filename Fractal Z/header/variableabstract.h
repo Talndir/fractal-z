@@ -9,4 +9,5 @@ public:
 	~VariableAbstract();
 
 	virtual void useValue(QOpenGLShaderProgram* program) = 0;
+	virtual void createPropertyGroup() = 0;
 };
