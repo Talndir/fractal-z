@@ -6,7 +6,8 @@
 
 #include "../header/openglwidget.h"
 
-QScrollArea* pane;
+//QScrollArea* pane;
+CollapsiblePanelWidget* pane;
 QVBoxLayout* paneLayout;
 
 int main(int argc, char ** argv)
@@ -22,11 +23,20 @@ int main(int argc, char ** argv)
 	OpenGLWidget window;
 	window.setFormat(format);
 	window.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
-
+	
+	/*
 	pane = new QScrollArea(&window);
 	pane->setStyleSheet("background-color:white");
 	pane->setWidgetResizable(true);
 	pane->setGeometry(0, 0, WINDOW_WIDTH / 5, WINDOW_HEIGHT);
+	*/
+
+	pane = new CollapsiblePanelWidget(&window);
+	pane->setStyleSheet("background-color:white");
+	pane->setWidgetResizable(true);
+	pane->setGeometry(0, 0, WINDOW_WIDTH / 5, WINDOW_HEIGHT);
+	pane->duration = 500;
+	pane->config(QRect(0, 0, WINDOW_WIDTH / 5, WINDOW_HEIGHT), QRect(-WINDOW_WIDTH / 5, 0, WINDOW_WIDTH / 5, WINDOW_HEIGHT));
 
 	QGroupBox* box = new QGroupBox();
 	pane->setWidget(box);

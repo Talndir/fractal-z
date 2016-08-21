@@ -3,6 +3,8 @@
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QVBoxLayout>
 
+#include "../header/collapsiblepanelwidget.h"
+
 #define WINDOW_WIDTH 1280															// Window width in pixels
 #define WINDOW_HEIGHT 720															// Window height in pixels
 #define RATIO float(float(WINDOW_WIDTH) / float(WINDOW_HEIGHT))						// Aspect ratio (16:9)
@@ -17,5 +19,6 @@
 #define IMAGE_WIDTH (BLOCKS_TOTAL_HORIZONTAL * BLOCK_WIDTH)							// Width of entire render area
 #define IMAGE_HEIGHT (BLOCKS_TOTAL_VERTICAL * BLOCK_HEIGHT)							// Height of entire render area
 
-extern QScrollArea* pane;
+//extern QScrollArea* pane;
+extern CollapsiblePanelWidget* pane;
 extern QVBoxLayout* paneLayout;

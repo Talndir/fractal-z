@@ -118,6 +118,11 @@ void OpenGLWidget::initializeGL()
 	glBindImageTexture(0, tex[0], 0, GL_FALSE, 0, GL_READ_WRITE, GL_R32F);
 	fractal.renderProgram->release();
 
+	button = new QPushButton(this);
+	button->setGeometry(QRect(300, 0, 100, 100));
+	button->setText("Panel");
+	connect(button, SIGNAL(pressed()), pane, SLOT(toggle()));
+
 	updateTimer = new QTimer(this);
 	updateTimer->setInterval(1000.f / 30.f);
 	connect(updateTimer, SIGNAL(timeout()), this, SLOT(drawFrame()));

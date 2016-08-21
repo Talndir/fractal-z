@@ -10,6 +10,8 @@
 #include "../header/external.h"
 #include "../header/fractal.h"
 
+#include <QtWidgets/QPushButton>
+
 class OpenGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_4_4_Core
 {
 	Q_OBJECT
@@ -42,4 +44,6 @@ private:
 	QTimer* updateTimer;
 
 	Fractal fractal;
+
+	QPushButton* button;
 };
