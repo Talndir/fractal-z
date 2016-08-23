@@ -64,6 +64,9 @@
     <None Include="shaders\test\test_fragment.glsl" />
     <None Include="shaders\test\test_vertex.glsl" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="shaders\test\test_variables.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B12702AD-ABFB-343A-A199-8E24837244A3}</ProjectGuid>
     <Keyword>Qt4VSv1.0</Keyword>

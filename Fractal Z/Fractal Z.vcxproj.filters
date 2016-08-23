@@ -102,4 +102,7 @@
     <None Include="shaders\test\test_vertex.glsl" />
     <None Include="shaders\test\test_fragment.glsl" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="shaders\test\test_variables.txt" />
+  </ItemGroup>
 </Project>
