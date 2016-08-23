@@ -13,8 +13,8 @@ void CollapsiblePanelWidget::config(QRect _openRect, QRect _closeRect)
 	this->setGeometry(_openRect);
 	openRect = new QRect(_openRect);
 	closeRect = new QRect(_closeRect);
-	openAnimation->setEndValue(*closeRect);
-	closeAnimation->setEndValue(*openRect);
+	openAnimation->setEndValue(*openRect);
+	closeAnimation->setEndValue(*closeRect);
 }
 
 void CollapsiblePanelWidget::open()
@@ -22,7 +22,7 @@ void CollapsiblePanelWidget::open()
 	closeAnimation->stop();
 
 	openAnimation->setStartValue(this->geometry());
-	float p = float((this->geometry().x() + this->width()) / openRect->width());
+	float p = 1.f - float(float(this->geometry().x() + this->width()) / float(openRect->width()));
 	openAnimation->setDuration(p * duration);
 
 	openAnimation->start();
@@ -33,7 +33,7 @@ void CollapsiblePanelWidget::close()
 	openAnimation->stop();
 
 	closeAnimation->setStartValue(this->geometry());
-	float p = 1.f - float((this->geometry().x() + this->width()) / openRect->width());
+	float p = float(float(this->geometry().x() + this->width()) / float(openRect->width()));
 	closeAnimation->setDuration(p * duration);
 
 	closeAnimation->start();
