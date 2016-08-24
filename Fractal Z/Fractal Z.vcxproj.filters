@@ -98,11 +98,17 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\test\test_compute.glsl" />
-    <None Include="shaders\test\test_vertex.glsl" />
-    <None Include="shaders\test\test_fragment.glsl" />
+    <None Include="shaders\template\template_vertex.glsl" />
+    <None Include="shaders\template\template_fragment.glsl" />
+    <None Include="shaders\template\template_compute.glsl" />
+    <None Include="shaders\mandelbrot_templated\mandelbrot_templated_fragment.glsl" />
+    <None Include="shaders\mandelbrot_templated\mandelbrot_templated_compute.glsl" />
+    <None Include="shaders\template\template_compute_begin.glsl" />
+    <None Include="shaders\template\template_compute_end.glsl" />
+    <None Include="shaders\template\template_fragment_begin.glsl" />
+    <None Include="shaders\template\template_fragment_end.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="shaders\test\test_variables.txt" />
+    <Text Include="shaders\mandelbrot_templated\mandelbrot_templated_variables.txt" />
   </ItemGroup>
 </Project>

@@ -1,2 +1,0 @@
-float,scalar,Scalar,1.0,1.0,0.0,4.0,true,c
-vec2,offset,Offset,0.0:0.0,0.0:0.0,-100.0:-100.0,100.0:100.0,true,r

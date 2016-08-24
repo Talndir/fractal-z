@@ -91,10 +91,11 @@ void OpenGLWidget::initializeGL()
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	// Shaders
-	fractal = Fractal();
+	fractal = Fractal("mandelbrot_templated", "Mandelbrot");
 
 	fractal.init();
 
+	/*
 	fractal.addComputeVariable("WINDOW_WIDTH", "WINDOW_WIDTH", WINDOW_WIDTH, WINDOW_WIDTH, WINDOW_WIDTH, WINDOW_WIDTH, false);
 	fractal.copyComputeVariableToRender();
 	fractal.addComputeVariable("WINDOW_HEIGHT", "WINDOW_HEIGHT", WINDOW_HEIGHT, WINDOW_HEIGHT, WINDOW_HEIGHT, WINDOW_HEIGHT, false);
@@ -103,6 +104,32 @@ void OpenGLWidget::initializeGL()
 	
 	fractal.addRenderVariable("BLOCK_WIDTH", "BLOCK_WIDTH", BLOCK_WIDTH, BLOCK_WIDTH, BLOCK_WIDTH, BLOCK_WIDTH, false);
 	fractal.addRenderVariable("BLOCK_HEIGHT", "BLOCK_HEIGHT", BLOCK_HEIGHT, BLOCK_HEIGHT, BLOCK_HEIGHT, BLOCK_HEIGHT, false);
+	*/
+
+	QVector2D renderOffset(0.0f, 0.0f);
+	QVector2D offset(0.0f, 0.0f);
+	QVector2D origin(0.0f, 0.0f);
+	float zoom = 1.f;
+
+	fractal.addComputeVariable("WINDOW_WIDTH", "", WINDOW_WIDTH, WINDOW_WIDTH, WINDOW_WIDTH, WINDOW_WIDTH, false);
+	fractal.copyComputeVariableToRender();
+	fractal.addComputeVariable("WINDOW_HEIGHT", "", WINDOW_HEIGHT, WINDOW_HEIGHT, WINDOW_HEIGHT, WINDOW_HEIGHT, false);
+	fractal.copyComputeVariableToRender();
+	fractal.addComputeVariable("BLOCK_WIDTH", "", BLOCK_WIDTH, BLOCK_WIDTH, BLOCK_WIDTH, BLOCK_WIDTH, false);
+	fractal.copyComputeVariableToRender();
+	fractal.addComputeVariable("BLOCK_HEIGHT", "", BLOCK_HEIGHT, BLOCK_HEIGHT, BLOCK_HEIGHT, BLOCK_HEIGHT, false);
+	fractal.copyComputeVariableToRender();
+	fractal.addComputeVariable("IMAGE_WIDTH", "", IMAGE_WIDTH, IMAGE_WIDTH, IMAGE_WIDTH, IMAGE_WIDTH, false);
+	fractal.copyComputeVariableToRender();
+	fractal.addComputeVariable("IMAGE_HEIGHT", "", IMAGE_HEIGHT, IMAGE_HEIGHT, IMAGE_HEIGHT, IMAGE_HEIGHT, false);
+	fractal.copyComputeVariableToRender();
+
+	fractal.addComputeVariable("renderOffset", "", renderOffset, renderOffset, renderOffset, renderOffset, false);
+	fractal.addComputeVariable("offset", "", offset, offset, offset, offset, false);
+	fractal.copyComputeVariableToRender();
+	fractal.addComputeVariable("origin", "Origin", origin, origin, QVector2D(-2.f, -2.f), QVector2D(2.f, 2.f), true);
+	fractal.addComputeVariable("ratio", "", RATIO, RATIO, RATIO, RATIO, false);
+	fractal.addComputeVariable("zoom", "Zoom", zoom, zoom, 0.0f, 10.0f, true);
 
 	fractal.computeProgram->bind();
 	glBindImageTexture(0, tex[0], 0, GL_FALSE, 0, GL_READ_WRITE, GL_R32F);
