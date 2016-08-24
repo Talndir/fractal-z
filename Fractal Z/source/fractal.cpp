@@ -5,7 +5,7 @@ QString templateRoot = fractalRoot + "template/template";
 
 Fractal::Fractal()
 {
-	internalName = QString("mandelbrot_templated");
+	internalName = QString("mandelbrot");
 	externalName = QString("Mandelbrot Set");
 	root = fractalRoot + internalName + "/";
 }

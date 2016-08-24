@@ -91,20 +91,9 @@ void OpenGLWidget::initializeGL()
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	// Shaders
-	fractal = Fractal("mandelbrot_templated", "Mandelbrot");
+	fractal = Fractal("mandelbrot", "Mandelbrot Set");
 
 	fractal.init();
-
-	/*
-	fractal.addComputeVariable("WINDOW_WIDTH", "WINDOW_WIDTH", WINDOW_WIDTH, WINDOW_WIDTH, WINDOW_WIDTH, WINDOW_WIDTH, false);
-	fractal.copyComputeVariableToRender();
-	fractal.addComputeVariable("WINDOW_HEIGHT", "WINDOW_HEIGHT", WINDOW_HEIGHT, WINDOW_HEIGHT, WINDOW_HEIGHT, WINDOW_HEIGHT, false);
-	fractal.copyComputeVariableToRender();
-	//fractal.addComputeVariable("scalar", "Scalar", 0.5f, 1.0f, 0.0f, 4.0f, true);
-	
-	fractal.addRenderVariable("BLOCK_WIDTH", "BLOCK_WIDTH", BLOCK_WIDTH, BLOCK_WIDTH, BLOCK_WIDTH, BLOCK_WIDTH, false);
-	fractal.addRenderVariable("BLOCK_HEIGHT", "BLOCK_HEIGHT", BLOCK_HEIGHT, BLOCK_HEIGHT, BLOCK_HEIGHT, BLOCK_HEIGHT, false);
-	*/
 
 	QVector2D renderOffset(0.0f, 0.0f);
 	QVector2D offset(0.0f, 0.0f);

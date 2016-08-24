@@ -60,8 +60,12 @@
     <ClCompile Include="source\variableabstract.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\mandelbrot_templated\mandelbrot_templated_compute.glsl" />
-    <None Include="shaders\mandelbrot_templated\mandelbrot_templated_fragment.glsl" />
+    <None Include="shaders\julia\julia_compute.glsl" />
+    <None Include="shaders\julia\julia_fragment.glsl" />
+    <None Include="shaders\mandelbrot\mandelbrot_compute.glsl" />
+    <None Include="shaders\mandelbrot\mandelbrot_fragment.glsl" />
+    <None Include="shaders\newton\newton_compute.glsl" />
+    <None Include="shaders\newton\newton_fragment.glsl" />
     <None Include="shaders\template\template_compute.glsl" />
     <None Include="shaders\template\template_compute_begin.glsl" />
     <None Include="shaders\template\template_compute_end.glsl" />
@@ -71,7 +75,9 @@
     <None Include="shaders\template\template_vertex.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="shaders\mandelbrot_templated\mandelbrot_templated_variables.txt" />
+    <Text Include="shaders\julia\julia_variables.txt" />
+    <Text Include="shaders\mandelbrot\mandelbrot_variables.txt" />
+    <Text Include="shaders\newton\newton_variables.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B12702AD-ABFB-343A-A199-8E24837244A3}</ProjectGuid>
