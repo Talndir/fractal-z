@@ -10,7 +10,11 @@ CollapsiblePanelWidget::CollapsiblePanelWidget(QWidget* parent)
 
 void CollapsiblePanelWidget::config(QRect _openRect, QRect _closeRect)
 {
-	this->setGeometry(_openRect);
+	if (isOpen)
+		this->setGeometry(_openRect);
+	else
+		this->setGeometry(_closeRect);
+
 	openRect = new QRect(_openRect);
 	closeRect = new QRect(_closeRect);
 	openAnimation->setEndValue(*openRect);

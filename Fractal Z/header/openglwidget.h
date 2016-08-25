@@ -21,8 +21,10 @@ public:
 
 	void initializeGL() Q_DECL_OVERRIDE;
 	void paintGL() Q_DECL_OVERRIDE;
+	void resizeGL(int w, int h) Q_DECL_OVERRIDE;
 
 	void runCompute();
+	void createFractal(QString intName, QString extName);
 
 public slots:
 	void drawFrame();
@@ -33,6 +35,7 @@ protected:
 private:
 	GLuint vertexLocation;
 	GLuint matrixLocation;
+	GLuint tex[1];
 
 	std::vector<float> vertices;
 	std::vector<int> indices;

@@ -12,6 +12,14 @@ Fractal::Fractal()
 
 Fractal::~Fractal()
 {
+	/*
+	delete computeProgram;
+	delete renderProgram;
+
+	delete computeShader;
+	delete vertexShader;
+	delete fragmentShader;
+	*/
 }
 
 Fractal::Fractal(QString _internalName, QString _externalName)
