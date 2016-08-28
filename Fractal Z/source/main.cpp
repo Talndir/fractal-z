@@ -6,8 +6,13 @@
 
 #include "../header/openglwidget.h"
 
-int WINDOW_WIDTH = 640;
-int WINDOW_HEIGHT = 360;
+int WINDOW_WIDTH = 1280;
+int WINDOW_HEIGHT = 720;
+float RATIO = float(float(WINDOW_WIDTH) / float(WINDOW_HEIGHT));
+int BLOCK_WIDTH = 16;
+int BLOCK_HEIGHT = 16;
+int IMAGE_WIDTH = BLOCKS_TOTAL_HORIZONTAL * BLOCK_WIDTH;
+int IMAGE_HEIGHT = BLOCKS_TOTAL_VERTICAL * BLOCK_HEIGHT;
 
 CollapsiblePanelWidget* pane;
 QVBoxLayout* paneLayout;
@@ -25,7 +30,6 @@ int main(int argc, char ** argv)
 
 	OpenGLWidget window;
 	window.setFormat(format);
-	window.setMinimumSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	window.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
 	pane = new CollapsiblePanelWidget(&window);

@@ -25,6 +25,12 @@ public:
 	void addRenderVariable(QString _internalName, QString _externalName, T _value, T _value_default, T _minimum_default, T _maximum_defualt, bool _expose);
 
 	template<typename T>
+	void addComputeVariable(QString _internalName, QString _externalName, T _value, T _value_default, T _minimum_default, T _maximum_defualt, bool _expose, T* _pointer);
+
+	template<typename T>
+	void addRenderVariable(QString _internalName, QString _externalName, T _value, T _value_default, T _minimum_default, T _maximum_defualt, bool _expose, T* _pointer);
+
+	template<typename T>
 	void addVariable(QString intName, QString extName, std::vector<T>& v, bool exp, char mode);
 
 	void copyRenderVariableToCompute();
@@ -65,6 +71,18 @@ template<typename T>
 void Fractal::addRenderVariable(QString _internalName, QString _externalName, T _value, T _value_default, T _minimum_default, T _maximum_defualt, bool _expose)
 {
 	renderVariables.emplace_back(new VariableTyped<T>(_internalName, _externalName, _value, _value_default, _minimum_default, _maximum_defualt, _expose));
+}
+
+template<typename T>
+void Fractal::addComputeVariable(QString _internalName, QString _externalName, T _value, T _value_default, T _minimum_default, T _maximum_defualt, bool _expose, T * _pointer)
+{
+	computeVariables.emplace_back(new VariableTyped<T>(_internalName, _externalName, _value, _value_default, _minimum_default, _maximum_defualt, _expose, _pointer));
+}
+
+template<typename T>
+void Fractal::addRenderVariable(QString _internalName, QString _externalName, T _value, T _value_default, T _minimum_default, T _maximum_defualt, bool _expose, T * _pointer)
+{
+	renderVariables.emplace_back(new VariableTyped<T>(_internalName, _externalName, _value, _value_default, _minimum_default, _maximum_defualt, _expose, _pointer));
 }
 
 template<typename T>

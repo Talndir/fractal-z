@@ -39,7 +39,6 @@ void OpenGLWidget::initializeGL()
 	connect(updateTimer, SIGNAL(timeout()), this, SLOT(drawFrame()));
 	updateTimer->start();
 
-	resize(1280, 720);
 	update();
 }
 
@@ -100,25 +99,25 @@ void OpenGLWidget::createFractal(QString intName, QString extName)
 	
 	fractal.init();
 
-	fractal.addComputeVariable("WINDOW_WIDTH", "", WINDOW_WIDTH, WINDOW_WIDTH, WINDOW_WIDTH, WINDOW_WIDTH, false);
+	fractal.addComputeVariable("WINDOW_WIDTH", "", WINDOW_WIDTH, WINDOW_WIDTH, WINDOW_WIDTH, WINDOW_WIDTH, false, &WINDOW_WIDTH);
 	fractal.copyComputeVariableToRender();
-	fractal.addComputeVariable("WINDOW_HEIGHT", "", WINDOW_HEIGHT, WINDOW_HEIGHT, WINDOW_HEIGHT, WINDOW_HEIGHT, false);
+	fractal.addComputeVariable("WINDOW_HEIGHT", "", WINDOW_HEIGHT, WINDOW_HEIGHT, WINDOW_HEIGHT, WINDOW_HEIGHT, false, &WINDOW_HEIGHT);
 	fractal.copyComputeVariableToRender();
-	fractal.addComputeVariable("BLOCK_WIDTH", "", BLOCK_WIDTH, BLOCK_WIDTH, BLOCK_WIDTH, BLOCK_WIDTH, false);
+	fractal.addComputeVariable("BLOCK_WIDTH", "", BLOCK_WIDTH, BLOCK_WIDTH, BLOCK_WIDTH, BLOCK_WIDTH, false, &BLOCK_WIDTH);
 	fractal.copyComputeVariableToRender();
-	fractal.addComputeVariable("BLOCK_HEIGHT", "", BLOCK_HEIGHT, BLOCK_HEIGHT, BLOCK_HEIGHT, BLOCK_HEIGHT, false);
+	fractal.addComputeVariable("BLOCK_HEIGHT", "", BLOCK_HEIGHT, BLOCK_HEIGHT, BLOCK_HEIGHT, BLOCK_HEIGHT, false, &BLOCK_HEIGHT);
 	fractal.copyComputeVariableToRender();
-	fractal.addComputeVariable("IMAGE_WIDTH", "", IMAGE_WIDTH, IMAGE_WIDTH, IMAGE_WIDTH, IMAGE_WIDTH, false);
+	fractal.addComputeVariable("IMAGE_WIDTH", "", IMAGE_WIDTH, IMAGE_WIDTH, IMAGE_WIDTH, IMAGE_WIDTH, false, &IMAGE_WIDTH);
 	fractal.copyComputeVariableToRender();
-	fractal.addComputeVariable("IMAGE_HEIGHT", "", IMAGE_HEIGHT, IMAGE_HEIGHT, IMAGE_HEIGHT, IMAGE_HEIGHT, false);
+	fractal.addComputeVariable("IMAGE_HEIGHT", "", IMAGE_HEIGHT, IMAGE_HEIGHT, IMAGE_HEIGHT, IMAGE_HEIGHT, false, &IMAGE_HEIGHT);
 	fractal.copyComputeVariableToRender();
 
-	fractal.addComputeVariable("renderOffset", "", renderOffset, renderOffset, renderOffset, renderOffset, false);
-	fractal.addComputeVariable("offset", "", offset, offset, offset, offset, false);
+	fractal.addComputeVariable("renderOffset", "", renderOffset, renderOffset, renderOffset, renderOffset, false, &renderOffset);
+	fractal.addComputeVariable("offset", "", offset, offset, offset, offset, false, &offset);
 	fractal.copyComputeVariableToRender();
-	fractal.addComputeVariable("origin", "Origin", origin, origin, QVector2D(-2.f, -2.f), QVector2D(2.f, 2.f), true);
-	fractal.addComputeVariable("ratio", "", RATIO, RATIO, RATIO, RATIO, false);
-	fractal.addComputeVariable("zoom", "Zoom", zoom, zoom, 0.0f, 10.0f, true);
+	fractal.addComputeVariable("origin", "Origin", origin, origin, QVector2D(-2.f, -2.f), QVector2D(2.f, 2.f), true, &origin);
+	fractal.addComputeVariable("ratio", "", RATIO, RATIO, RATIO, RATIO, false, &RATIO);
+	fractal.addComputeVariable("zoom", "Zoom", zoom, zoom, 0.0f, 10.0f, true, &zoom);
 
 	m_vao.bind();
 
@@ -156,6 +155,9 @@ void OpenGLWidget::resizeGL(int w, int h)
 {
 	WINDOW_WIDTH = w;
 	WINDOW_HEIGHT = h;
+	RATIO = float(float(WINDOW_WIDTH) / float(WINDOW_HEIGHT));
+	IMAGE_WIDTH = BLOCKS_TOTAL_HORIZONTAL * BLOCK_WIDTH;
+	IMAGE_HEIGHT = BLOCKS_TOTAL_VERTICAL * BLOCK_HEIGHT;
 
 	pane->config(QRect(0, 0, WINDOW_WIDTH / 5, WINDOW_HEIGHT), QRect(-WINDOW_WIDTH / 5, 0, WINDOW_WIDTH / 5, WINDOW_HEIGHT));
 
