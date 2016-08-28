@@ -29,8 +29,8 @@ void OpenGLWidget::initializeGL()
 	resizeGL(WINDOW_WIDTH, WINDOW_HEIGHT);
 
 	button = new QPushButton(this);
-	button->setGeometry(QRect(300, 0, 100, 100));
-	button->setText("Panel");
+	button->setGeometry(QRect(0, 0, 25, 25));
+	button->setText("<->");
 	connect(button, SIGNAL(pressed()), pane, SLOT(toggle()));
 	button->show();
 
