@@ -82,6 +82,14 @@ void OpenGLWidget::keyPressEvent(QKeyEvent* event)
 		origin = QVector2D(0.0f, 0.0f);
 		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
 		break;
+	case Qt::Key_E:
+		zoom /= 2.0f;
+		fractal.computeVariables.at(fractal.computeVariables.size() - 1)->setValue();
+		break;
+	case Qt::Key_Q:
+		zoom *= 2.0f;
+		fractal.computeVariables.at(fractal.computeVariables.size() - 1)->setValue();
+		break;
 	}
 }
 
@@ -140,7 +148,7 @@ void OpenGLWidget::createFractal(QString intName, QString extName)
 	fractal.copyComputeVariableToRender();
 	fractal.addComputeVariable("origin", "Origin", origin, origin, QVector2D(-2.f, -2.f), QVector2D(2.f, 2.f), true, &origin);
 	fractal.addComputeVariable("ratio", "", RATIO, RATIO, RATIO, RATIO, false, &RATIO);
-	fractal.addComputeVariable("zoom", "Zoom", zoom, zoom, 0.0f, 10.0f, true, &zoom);
+	fractal.addComputeVariable("zoom", "Zoom", zoom, zoom, 0.0f, 512.0f, true, &zoom);
 
 	m_vao.bind();
 

@@ -16,8 +16,8 @@ Property::Property(float min, float max, float pos, QWidget* parent)
 	spinbox->setMinimum(min);
 	spinbox->setMaximum(max);
 	spinbox->setValue(pos);
-	spinbox->setDecimals(6);
-	spinbox->setSingleStep(0.000001);
+	spinbox->setDecimals(10);
+	spinbox->setSingleStep(0.0000000001);
 
 	connect(spinbox, SIGNAL(editingFinished()), this, SLOT(useSpinbox()));
 }
