@@ -15,6 +15,9 @@ PropertyGroup::PropertyGroup(int min, int max, int t, QString name)
 
 	properties.emplace_back(new Property(min, max, t, box));
 
+	properties.at(0)->spinbox->setDecimals(0);
+	properties.at(0)->spinbox->setSingleStep(1);
+
 	config();
 }
 
@@ -68,7 +71,10 @@ void PropertyGroup::config()
 	boxLayout = new QVBoxLayout();
 
 	for (unsigned int i = 0; i < properties.size(); ++i)
-		boxLayout->addWidget(&properties.at(i)->slider);
+	{
+		boxLayout->addWidget(properties.at(i)->slider);
+		boxLayout->addWidget(properties.at(i)->spinbox);
+	}
 
 	box->setLayout(boxLayout);
 	paneLayout->addWidget(box);
