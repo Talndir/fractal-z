@@ -5,6 +5,7 @@
 #include <QtGui/QOpenGLVertexArrayObject>
 #include <QtGui/QOpenGLBuffer>
 #include <QtGui/QOpenGLShaderProgram>
+#include <QtGui/QKeyEvent>
 #include <QtCore/QTimer>
 
 #include "../header/external.h"

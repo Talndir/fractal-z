@@ -60,6 +60,9 @@ void OpenGLWidget::paintGL()
 
 void OpenGLWidget::keyPressEvent(QKeyEvent* event)
 {
+	switch (event->key())
+	{
+	}
 }
 
 void OpenGLWidget::drawFrame()
