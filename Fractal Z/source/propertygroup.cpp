@@ -110,3 +110,34 @@ void PropertyGroup::getValue(QVector4D & v)
 	v.setZ(properties.at(2)->getValue());
 	v.setW(properties.at(3)->getValue());
 }
+
+void PropertyGroup::setValue(float v)
+{
+	properties.at(0)->setValue(v);
+}
+
+void PropertyGroup::setValue(int v)
+{
+	properties.at(0)->setValue(v);
+}
+
+void PropertyGroup::setValue(QVector2D v)
+{
+	properties.at(0)->setValue(v.x());
+	properties.at(1)->setValue(v.y());
+}
+
+void PropertyGroup::setValue(QVector3D v)
+{
+	properties.at(0)->setValue(v.x());
+	properties.at(1)->setValue(v.y());
+	properties.at(2)->setValue(v.z());
+}
+
+void PropertyGroup::setValue(QVector4D v)
+{
+	properties.at(0)->setValue(v.x());
+	properties.at(1)->setValue(v.y());
+	properties.at(2)->setValue(v.z());
+	properties.at(3)->setValue(v.w());
+}

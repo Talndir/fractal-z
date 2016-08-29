@@ -12,6 +12,7 @@ public:
 	~Property();
 
 	float getValue();
+	void setValue(float v);
 
 	QSlider* slider;
 	float scalar = 1000.f;

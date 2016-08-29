@@ -34,6 +34,12 @@ float Property::getValue()
 		return spinbox->value();
 }
 
+void Property::setValue(float v)
+{
+	slider->setSliderPosition(v * scalar);
+	spinbox->setValue(v);
+}
+
 void Property::useSlider(int action)
 {
 	useSliderValue = true;

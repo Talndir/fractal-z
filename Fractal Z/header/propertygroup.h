@@ -29,6 +29,12 @@ public:
 	void getValue(QVector3D& v);
 	void getValue(QVector4D& v);
 
+	void setValue(float v);
+	void setValue(int v);
+	void setValue(QVector2D v);
+	void setValue(QVector3D v);
+	void setValue(QVector4D v);
+
 	std::vector<std::shared_ptr<Property>> properties;
 	QGroupBox* box;
 	QVBoxLayout* boxLayout;

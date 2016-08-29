@@ -16,6 +16,7 @@ public:
 
 	void useValue(QOpenGLShaderProgram* program) override;
 	void createPropertyGroup() override;
+	void setValue() override;
 
 	QString internalName;
 	QString externalName;
@@ -51,6 +52,13 @@ inline void VariableTyped<T>::createPropertyGroup()
 {
 	if (expose)
 		propertyGroup = new PropertyGroup(minimum_default, maximum_default, value_default, externalName);
+}
+
+template<typename T>
+inline void VariableTyped<T>::setValue()
+{
+	if (pointer)
+		propertyGroup->setValue(*pointer);
 }
 
 template<typename T>

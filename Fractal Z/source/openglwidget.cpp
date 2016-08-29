@@ -62,6 +62,26 @@ void OpenGLWidget::keyPressEvent(QKeyEvent* event)
 {
 	switch (event->key())
 	{
+	case Qt::Key_W:
+		origin.setY(origin.y() + (0.025 / zoom));
+		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+		break;
+	case Qt::Key_S:
+		origin.setY(origin.y() - (0.025 / zoom));
+		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+		break;
+	case Qt::Key_A:
+		origin.setX(origin.x() - (0.025 / zoom));
+		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+		break;
+	case Qt::Key_D:
+		origin.setX(origin.x() + (0.025 / zoom));
+		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+		break;
+	case Qt::Key_R:
+		origin = QVector2D(0.0f, 0.0f);
+		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+		break;
 	}
 }
 
