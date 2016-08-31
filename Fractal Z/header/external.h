@@ -19,13 +19,21 @@ extern int BLOCK_HEIGHT;																// Height of each block
 #define BLOCKS_TOTAL_VERTICAL (BLOCKS_VERTICAL + (2 * BLOCKS_EXTRA_VERTICAL))		// Total vertical blocks
 extern int IMAGE_WIDTH;																// Width of entire render area
 extern int IMAGE_HEIGHT;															// Height of entire render area
+#define PIXEL_MOVE 16																// Pixels moved per 'step'
+#define ORIGIN_MOVE ((float(PIXEL_MOVE) / float(WINDOW_HEIGHT)) * 2)				// Origin movement per 'step'
+
+enum ERENDERMODE { NONE, ALL, LEFT, RIGHT, TOP, BOTTOM };
+extern ERENDERMODE rendermodeLR;
+extern ERENDERMODE rendermodeTB;
+
+extern bool keys[1024];
 
 extern QVector2D renderOffset;
 extern QVector2D offset;
+extern QVector2D majorOffset;
 extern QVector2D origin;
 extern float zoom;
 
-//extern QScrollArea* pane;
 extern CollapsiblePanelWidget* pane;
 extern QVBoxLayout* paneLayout;
 extern QGroupBox* paneBox;

@@ -1,9 +1,15 @@
 #include "../header/openglwidget.h"
 
 QVector2D renderOffset(0.0f, 0.0f);
-QVector2D offset(0.0f, 0.0f);
+QVector2D offset(0.01f, 0.01f);
+QVector2D majorOffset(0.01f, 0.01f);
 QVector2D origin(0.0f, 0.0f);
 float zoom = 1.f;
+
+ERENDERMODE rendermodeLR = ALL;
+ERENDERMODE rendermodeTB = NONE;
+
+bool keys[1024];
 
 OpenGLWidget::OpenGLWidget(QWidget * parent)
 {
@@ -35,11 +41,14 @@ void OpenGLWidget::initializeGL()
 	button->show();
 
 	updateTimer = new QTimer(this);
-	updateTimer->setInterval(1000.f / 30.f);
+	updateTimer->setInterval(1000.f / 1000.f);
 	connect(updateTimer, SIGNAL(timeout()), this, SLOT(drawFrame()));
 	updateTimer->start();
 
-	update();
+	for (unsigned int i = 0; i < 1024; ++i)
+		keys[i] = false;
+
+	drawFrame();
 }
 
 void OpenGLWidget::paintGL()
@@ -49,6 +58,7 @@ void OpenGLWidget::paintGL()
 
 	glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
 
+	majorOffset += offset;
 	fractal.beginRender();
 
 	m_vao.bind();
@@ -56,60 +66,90 @@ void OpenGLWidget::paintGL()
 	m_vao.release();
 
 	fractal.endRender();
+	majorOffset -= offset;
 }
 
 void OpenGLWidget::keyPressEvent(QKeyEvent* event)
 {
-	switch (event->key())
+	if (event->key() < 1024)
+		keys[event->key()] = true;
+
+	if (event->key() == Qt::Key::Key_Q)
 	{
-	case Qt::Key_W:
-		origin.setY(origin.y() + (0.025 / zoom));
-		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
-		break;
-	case Qt::Key_S:
-		origin.setY(origin.y() - (0.025 / zoom));
-		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
-		break;
-	case Qt::Key_A:
-		origin.setX(origin.x() - (0.025 / zoom));
-		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
-		break;
-	case Qt::Key_D:
-		origin.setX(origin.x() + (0.025 / zoom));
-		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
-		break;
-	case Qt::Key_R:
-		origin = QVector2D(0.0f, 0.0f);
-		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
-		break;
-	case Qt::Key_E:
-		zoom /= 2.0f;
-		fractal.computeVariables.at(fractal.computeVariables.size() - 1)->setValue();
-		break;
-	case Qt::Key_Q:
 		zoom *= 2.0f;
 		fractal.computeVariables.at(fractal.computeVariables.size() - 1)->setValue();
-		break;
+		rendermodeLR = ALL;
 	}
+	else if (event->key() == Qt::Key::Key_E)
+	{
+		zoom /= 2.0f;
+		fractal.computeVariables.at(fractal.computeVariables.size() - 1)->setValue();
+		rendermodeLR = ALL;
+	}
+}
+
+void OpenGLWidget::keyReleaseEvent(QKeyEvent* event)
+{
+	if (event->key() < 1024)
+		keys[event->key()] = false;
 }
 
 void OpenGLWidget::drawFrame()
 {
+	getKeys();
 	runCompute();
 	update();
 }
 
 void OpenGLWidget::runCompute()
 {
-	makeCurrent();
+	if (rendermodeLR || rendermodeTB)
+	{
+		makeCurrent();
 
-	fractal.beginCompute();
+		switch (rendermodeLR)
+		{
+		case NONE:
+			break;
+		case ALL:
+			renderOffset = QVector2D(0.0f, 0.0f);
+			fractal.beginCompute();
+			glDispatchCompute(BLOCKS_TOTAL_HORIZONTAL, BLOCKS_TOTAL_VERTICAL, 1);
+			break;
+		case LEFT:
+			renderOffset = QVector2D(0.0f, 0.0f);
+			fractal.beginCompute();
+			glDispatchCompute(1, BLOCKS_TOTAL_VERTICAL, 1);
+			break;
+		case RIGHT:
+			renderOffset = QVector2D(IMAGE_WIDTH - BLOCK_WIDTH, 0.0f);
+			fractal.beginCompute();
+			glDispatchCompute(1, BLOCKS_TOTAL_VERTICAL, 1);
+			break;
+		}
 
-	glDispatchCompute(BLOCKS_TOTAL_HORIZONTAL, BLOCKS_TOTAL_VERTICAL, 1);
+		switch (rendermodeTB)
+		{
+		case NONE:
+			break;
+		case TOP:
+			renderOffset = QVector2D(0.0f, IMAGE_HEIGHT - BLOCK_HEIGHT);
+			fractal.beginCompute();
+			glDispatchCompute(BLOCKS_TOTAL_HORIZONTAL, 1, 1);
+			break;
+		case BOTTOM:
+			renderOffset = QVector2D(0.0f, 0.0f);
+			fractal.beginCompute();
+			glDispatchCompute(BLOCKS_TOTAL_HORIZONTAL, 1, 1);
+			break;
+		}
 
-	fractal.endCompute();
+		rendermodeLR = NONE;
+		rendermodeTB = NONE;
 
-	doneCurrent();
+		fractal.endCompute();
+		doneCurrent();
+	}
 }
 
 void OpenGLWidget::createFractal(QString intName, QString extName)
@@ -144,11 +184,11 @@ void OpenGLWidget::createFractal(QString intName, QString extName)
 	fractal.copyComputeVariableToRender();
 
 	fractal.addComputeVariable("renderOffset", "", renderOffset, renderOffset, renderOffset, renderOffset, false, &renderOffset);
-	fractal.addComputeVariable("offset", "", offset, offset, offset, offset, false, &offset);
+	fractal.addComputeVariable("offset", "", majorOffset, majorOffset, majorOffset, majorOffset, false, &majorOffset);
 	fractal.copyComputeVariableToRender();
-	fractal.addComputeVariable("origin", "Origin", origin, origin, QVector2D(-2.f, -2.f), QVector2D(2.f, 2.f), true, &origin);
+	fractal.addComputeVariable("origin", "Origin", origin, origin, QVector2D(-4.f, -4.f), QVector2D(4.f, 4.f), true, &origin);
 	fractal.addComputeVariable("ratio", "", RATIO, RATIO, RATIO, RATIO, false, &RATIO);
-	fractal.addComputeVariable("zoom", "Zoom", zoom, zoom, 0.0f, 512.0f, true, &zoom);
+	fractal.addComputeVariable("zoom", "Zoom", zoom, zoom, 0.0f, float(std::pow(2, 32)), true, &zoom);
 
 	m_vao.bind();
 
@@ -180,6 +220,78 @@ void OpenGLWidget::createFractal(QString intName, QString extName)
 	m_vao.release();
 	glBindImageTexture(0, tex[0], 0, GL_FALSE, 0, GL_READ_WRITE, GL_R32F);
 	fractal.renderProgram->release();
+}
+
+void OpenGLWidget::getKeys()
+{
+	if (keys[Qt::Key::Key_W])
+	{
+		origin.setY(origin.y() + (ORIGIN_MOVE / zoom));
+		offset.setY(offset.y() + PIXEL_MOVE);
+		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+	}
+	if (keys[Qt::Key::Key_S])
+	{
+		origin.setY(origin.y() - (ORIGIN_MOVE / zoom));
+		offset.setY(offset.y() - PIXEL_MOVE);
+		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+	}
+	if (keys[Qt::Key::Key_A])
+	{
+		origin.setX(origin.x() - (ORIGIN_MOVE / zoom));
+		offset.setX(offset.x() - PIXEL_MOVE);
+		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+	}
+	if (keys[Qt::Key::Key_D])
+	{
+		origin.setX(origin.x() + (ORIGIN_MOVE / zoom));
+		offset.setX(offset.x() + PIXEL_MOVE);
+		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+	}
+	if (keys[Qt::Key::Key_R])
+	{
+		origin = QVector2D(0.0f, 0.0f);
+		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+		zoom = 1.f;
+		fractal.computeVariables.at(fractal.computeVariables.size() - 1)->setValue();
+		rendermodeLR = ALL;
+	}
+	if (keys[Qt::Key::Key_C])
+		rendermodeLR = ALL;
+
+	if (offset.x() >= BLOCK_WIDTH)
+	{
+		majorOffset.setX(majorOffset.x() + BLOCK_WIDTH);
+		rendermodeLR = RIGHT;
+		offset.setX(offset.x() - BLOCK_WIDTH);
+	}
+	else if (offset.x() < 0)
+	{
+		majorOffset.setX(majorOffset.x() - BLOCK_WIDTH);
+		rendermodeLR = LEFT;
+		offset.setX(offset.x() + BLOCK_WIDTH);
+	}
+	if (offset.y() >= BLOCK_HEIGHT)
+	{
+		majorOffset.setY(majorOffset.y() + BLOCK_HEIGHT);
+		rendermodeTB = TOP;
+		offset.setY(offset.y() - BLOCK_HEIGHT);
+	}
+	else if (offset.y() < 0)
+	{
+		majorOffset.setY(majorOffset.y() - BLOCK_HEIGHT);
+		rendermodeTB = BOTTOM;
+		offset.setY(offset.y() + BLOCK_HEIGHT);
+	}
+
+	if (majorOffset.x() >= IMAGE_WIDTH)
+		majorOffset.setX(majorOffset.x() - IMAGE_WIDTH);
+	else if (majorOffset.x() < 0)
+		majorOffset.setX(majorOffset.x() + IMAGE_WIDTH);
+	if (majorOffset.y() >= IMAGE_HEIGHT)
+		majorOffset.setY(majorOffset.y() - IMAGE_HEIGHT);
+	else if (majorOffset.y() < 0)
+		majorOffset.setY(majorOffset.y() + IMAGE_HEIGHT);
 }
 
 void OpenGLWidget::resizeGL(int w, int h)
@@ -276,4 +388,6 @@ void OpenGLWidget::resizeGL(int w, int h)
 	m_vao.release();
 	glBindImageTexture(0, tex[0], 0, GL_FALSE, 0, GL_READ_WRITE, GL_R32F);
 	fractal.renderProgram->release();
+
+	rendermodeLR = ALL;
 }

@@ -26,12 +26,14 @@ public:
 
 	void runCompute();
 	void createFractal(QString intName, QString extName);
+	void getKeys();
 
 public slots:
 	void drawFrame();
 
 protected:
 	void keyPressEvent(QKeyEvent* event) Q_DECL_OVERRIDE;
+	void keyReleaseEvent(QKeyEvent* event) Q_DECL_OVERRIDE;
 
 private:
 	GLuint vertexLocation;

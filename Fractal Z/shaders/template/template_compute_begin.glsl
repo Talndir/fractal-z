@@ -2,7 +2,7 @@
 #version 440 core
 
 // Work group size
-layout(local_size_x = 16, local_size_y = 16, local_size_z = 1) in;
+layout(local_size_x = 32, local_size_y = 32, local_size_z = 1) in;
 
 // Image from image load/store
 uniform image2D pixels;

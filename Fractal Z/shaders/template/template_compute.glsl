@@ -55,6 +55,14 @@ void main()
 
 	pos = pos + origin;
 
+	// Add on pixel offset to save to correct place
+	pix = pix + ivec2(int(offset.x), int(offset.y));
+
+	if (pix.x >= IMAGE_WIDTH)
+		pix.x -= IMAGE_WIDTH;
+	if (pix.y >= IMAGE_HEIGHT)
+		pix.y -= IMAGE_HEIGHT;
+
 	// Run user code
 	imageStore(pixels, pix, vec4(compute(pos), 0.0f, 0.0f, 0.0f));
 }
