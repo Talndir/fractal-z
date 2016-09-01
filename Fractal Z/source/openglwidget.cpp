@@ -11,6 +11,8 @@ ERENDERMODE rendermodeTB = NONE;
 
 bool keys[1024];
 
+bool fill = true;
+
 OpenGLWidget::OpenGLWidget(QWidget * parent)
 {
 }
@@ -29,8 +31,7 @@ void OpenGLWidget::initializeGL()
 	QOpenGLBuffer m_ebo(QOpenGLBuffer::IndexBuffer);
 
 	// Fill mode for polygons
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	// Shaders
 	createFractal("mandelbrot", "Mandelbrot Set");
@@ -63,6 +64,11 @@ void OpenGLWidget::paintGL()
 
 	majorOffset += offset;
 	fractal.beginRender();
+
+	if (fill)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	else
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	m_vao.bind();
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
@@ -261,6 +267,10 @@ void OpenGLWidget::getKeys()
 	}
 	if (keys[Qt::Key::Key_C])
 		rendermodeLR = ALL;
+	if (keys[Qt::Key::Key_L])
+		fill = false;
+	if (keys[Qt::Key::Key_F])
+		fill = true;
 
 	if (offset.x() >= BLOCK_WIDTH)
 	{
