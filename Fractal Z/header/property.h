@@ -15,11 +15,9 @@ public:
 	void setValue(float v);
 
 	QSlider* slider;
-	float scalar = 1000.f;
+	float scalar = std::pow(10, 6);
 
 	QDoubleSpinBox* spinbox;
-
-	bool useSliderValue = false;
 
 public slots:
 	void useSlider(int action);

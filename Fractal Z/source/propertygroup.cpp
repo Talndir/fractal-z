@@ -54,6 +54,16 @@ PropertyGroup::PropertyGroup(QVector4D min, QVector4D max, QVector4D t, QString 
 	config();
 }
 
+PropertyGroup::PropertyGroup(vec2 min, vec2 max, vec2 t, QString name)
+{
+	createBox(name);
+
+	properties.emplace_back(new Property(min.x, max.x, t.x, box));
+	properties.emplace_back(new Property(min.y, max.y, t.y, box));
+
+	config();
+}
+
 PropertyGroup::~PropertyGroup()
 {
 }
@@ -111,6 +121,12 @@ void PropertyGroup::getValue(QVector4D & v)
 	v.setW(properties.at(3)->getValue());
 }
 
+void PropertyGroup::getValue(vec2 & v)
+{
+	v.x = properties.at(0)->getValue();
+	v.y = properties.at(1)->getValue();
+}
+
 void PropertyGroup::setValue(float v)
 {
 	properties.at(0)->setValue(v);
@@ -140,4 +156,10 @@ void PropertyGroup::setValue(QVector4D v)
 	properties.at(1)->setValue(v.y());
 	properties.at(2)->setValue(v.z());
 	properties.at(3)->setValue(v.w());
+}
+
+void PropertyGroup::setValue(vec2 v)
+{
+	properties.at(0)->setValue(v.x);
+	properties.at(1)->setValue(v.y);
 }

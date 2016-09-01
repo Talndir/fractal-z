@@ -29,3 +29,8 @@ void Resolver::setUniformValue(int location, QVector4D value)
 {
 	glUniform4f(location, value.x(), value.y(), value.z(), value.w());
 }
+
+void Resolver::setUniformValue(int location, vec2 value)
+{
+	glUniform2d(location, value.x, value.y);
+}

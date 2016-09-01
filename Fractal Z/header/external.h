@@ -32,7 +32,7 @@ extern bool keys[1024];
 extern QVector2D renderOffset;
 extern QVector2D offset;
 extern QVector2D majorOffset;
-extern QVector2D origin;
+extern vec2 origin;
 extern float zoom;
 
 extern CollapsiblePanelWidget* pane;

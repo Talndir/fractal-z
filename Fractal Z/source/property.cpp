@@ -1,5 +1,5 @@
 #include "../header/property.h"
-
+#include <QtCore/QTextStream>
 Property::Property(float min, float max, float pos, QWidget* parent)
 {
 	slider = new QSlider();
@@ -28,10 +28,7 @@ Property::~Property()
 
 float Property::getValue()
 {
-	if (useSliderValue)
-		return float(slider->sliderPosition()) / scalar;
-	else
-		return spinbox->value();
+	return spinbox->value();
 }
 
 void Property::setValue(float v)
@@ -42,12 +39,10 @@ void Property::setValue(float v)
 
 void Property::useSlider(int action)
 {
-	useSliderValue = true;
-	spinbox->setValue(getValue());
+	spinbox->setValue(float(slider->value()) / scalar);
 }
 
 void Property::useSpinbox()
 {
-	useSliderValue = false;
-	slider->setSliderPosition(getValue() * scalar);
+	slider->setSliderPosition(spinbox->value() * scalar);
 }

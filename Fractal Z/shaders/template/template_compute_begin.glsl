@@ -16,7 +16,7 @@ uniform int IMAGE_WIDTH;
 uniform int IMAGE_HEIGHT;
 uniform vec2 renderOffset;
 uniform vec2 offset;
-uniform vec2 origin;
+uniform dvec2 origin;
 uniform float ratio;
 uniform float zoom;
 

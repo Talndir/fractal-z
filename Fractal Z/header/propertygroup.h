@@ -17,6 +17,7 @@ public:
 	PropertyGroup(QVector2D min, QVector2D max, QVector2D t, QString name);
 	PropertyGroup(QVector3D min, QVector3D max, QVector3D t, QString name);
 	PropertyGroup(QVector4D min, QVector4D max, QVector4D t, QString name);
+	PropertyGroup(vec2 min, vec2 max, vec2 t, QString name);
 
 	~PropertyGroup();
 
@@ -28,12 +29,14 @@ public:
 	void getValue(QVector2D& v);
 	void getValue(QVector3D& v);
 	void getValue(QVector4D& v);
+	void getValue(vec2& v);
 
 	void setValue(float v);
 	void setValue(int v);
 	void setValue(QVector2D v);
 	void setValue(QVector3D v);
 	void setValue(QVector4D v);
+	void setValue(vec2 v);
 
 	std::vector<std::shared_ptr<Property>> properties;
 	QGroupBox* box;

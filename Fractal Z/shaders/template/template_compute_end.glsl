@@ -6,7 +6,7 @@ void main()
 {
 	ivec2 pix;	// Current pixel
 	vec2 frac;	// Current position in fractal co-ords
-	vec2 pos;	// Value after scaling (screen co-ords)
+	dvec2 pos;	// Value after scaling (screen co-ords)
 
 	// Calculate current pixel being worked on from work group
 	int j = int(gl_LocalInvocationID.x);

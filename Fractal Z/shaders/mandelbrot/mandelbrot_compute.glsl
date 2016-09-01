@@ -1,11 +1,11 @@
 uniform int maxIterations;
 
-float compute(vec2 pos)
+float compute(dvec2 pos)
 {
-	vec2 z = vec2(0.0f, 0.0f);
-	vec2 c = pos;
-	float rsqr = 0.0f;
-	float isqr = 0.0f;
+	dvec2 z = vec2(0.0f, 0.0f);
+	dvec2 c = pos;
+	double rsqr = 0.0f;
+	double isqr = 0.0f;
 	int i = 0;
 
 	while ((i < maxIterations) && (isqr + rsqr < 4.0f))
