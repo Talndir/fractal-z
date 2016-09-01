@@ -33,7 +33,7 @@ void OpenGLWidget::initializeGL()
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	// Shaders
-	createFractal("mandelbrot", "Mandelbrot Set");
+	createFractal("newton", "Mandelbrot Set");
 
 	resizeGL(WINDOW_WIDTH, WINDOW_HEIGHT);
 

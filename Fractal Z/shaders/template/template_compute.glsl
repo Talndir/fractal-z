@@ -16,7 +16,7 @@ uniform int IMAGE_WIDTH;
 uniform int IMAGE_HEIGHT;
 uniform vec2 renderOffset;
 uniform vec2 offset;
-uniform vec2 origin;
+uniform dvec2 origin;
 uniform float ratio;
 uniform float zoom;
 
@@ -34,7 +34,7 @@ void main()
 {
 	ivec2 pix;	// Current pixel
 	vec2 frac;	// Current position in fractal co-ords
-	vec2 pos;	// Value after scaling (screen co-ords)
+	dvec2 pos;	// Value after scaling (screen co-ords)
 
 	// Calculate current pixel being worked on from work group
 	int j = int(gl_LocalInvocationID.x);
