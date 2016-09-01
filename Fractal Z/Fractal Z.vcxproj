@@ -34,6 +34,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <ClInclude Include="header\propertygroup.h" />
+    <ClInclude Include="header\resolver.h" />
     <ClInclude Include="header\variableabstract.h" />
     <ClInclude Include="header\variabletyped.h" />
     <CustomBuild Include="header\openglwidget.h">
@@ -72,6 +73,7 @@
     <ClCompile Include="source\openglwidget.cpp" />
     <ClCompile Include="source\property.cpp" />
     <ClCompile Include="source\propertygroup.cpp" />
+    <ClCompile Include="source\resolver.cpp" />
     <ClCompile Include="source\variableabstract.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -44,7 +44,8 @@ inline void VariableTyped<T>::useValue(QOpenGLShaderProgram * program)
 	else if (pointer)
 		value = *pointer;
 
-	program->setUniformValue(internalName.toUtf8().constData(), value);
+	//program->setUniformValue(internalName.toUtf8().constData(), value);
+	r->setUniformValue(program->uniformLocation(internalName), value);
 }
 
 template<typename T>

@@ -17,6 +17,9 @@ OpenGLWidget::OpenGLWidget(QWidget * parent)
 
 void OpenGLWidget::initializeGL()
 {
+	resolver = new Resolver();
+	r = resolver;
+
 	initializeOpenGLFunctions();
 
 	glClearColor(0.0f, 0.5f, 1.0f, 1.0f);

@@ -28,6 +28,8 @@ public:
 	void createFractal(QString intName, QString extName);
 	void getKeys();
 
+	Resolver* resolver;
+
 public slots:
 	void drawFrame();
 

@@ -18,6 +18,8 @@ CollapsiblePanelWidget* pane;
 QVBoxLayout* paneLayout;
 QGroupBox* paneBox;
 
+Resolver* r;
+
 int main(int argc, char ** argv)
 {
 	QApplication app(argc, argv);
