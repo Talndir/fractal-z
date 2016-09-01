@@ -191,7 +191,7 @@ void OpenGLWidget::createFractal(QString intName, QString extName)
 	fractal.copyComputeVariableToRender();
 	fractal.addComputeVariable("origin", "Origin", origin, origin, vec2(-4.f, -4.f), vec2(4.f, 4.f), true, &origin);
 	fractal.addComputeVariable("ratio", "", RATIO, RATIO, RATIO, RATIO, false, &RATIO);
-	fractal.addComputeVariable("zoom", "Zoom", zoom, zoom, 0.0f, float(std::pow(2, 32)), true, &zoom);
+	fractal.addComputeVariable("zoom", "Zoom", zoom, zoom, 0.0f, float(std::pow(2, 64)), true, &zoom);
 
 	m_vao.bind();
 
