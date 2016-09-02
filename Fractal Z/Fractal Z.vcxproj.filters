@@ -132,4 +132,7 @@
     <Text Include="shaders\julia\julia_variables.txt" />
     <Text Include="shaders\newton\newton_variables.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="minibrot.png" />
+  </ItemGroup>
 </Project>

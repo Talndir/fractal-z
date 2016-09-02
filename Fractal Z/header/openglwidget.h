@@ -7,6 +7,7 @@
 #include <QtGui/QOpenGLShaderProgram>
 #include <QtGui/QKeyEvent>
 #include <QtCore/QTimer>
+#include <QtWidgets/QFileDialog>
 
 #include "../header/external.h"
 #include "../header/fractal.h"

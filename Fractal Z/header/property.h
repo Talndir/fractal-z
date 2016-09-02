@@ -8,14 +8,14 @@ class Property : public QObject
 	Q_OBJECT
 
 public:
-	Property(float min, float max, float def, QWidget* parent);
+	Property(double min, double max, double pos, QWidget* parent);
 	~Property();
 
-	float getValue();
-	void setValue(float v);
+	double getValue();
+	void setValue(double v);
 
 	QSlider* slider;
-	float scalar = std::pow(10, 6);
+	double scalar = std::pow(10, 6);
 
 	QDoubleSpinBox* spinbox;
 

@@ -1,6 +1,6 @@
 #include "../header/property.h"
 #include <QtCore/QTextStream>
-Property::Property(float min, float max, float pos, QWidget* parent)
+Property::Property(double min, double max, double  pos, QWidget* parent)
 {
 	slider = new QSlider();
 	slider->setOrientation(Qt::Horizontal);
@@ -13,10 +13,10 @@ Property::Property(float min, float max, float pos, QWidget* parent)
 
 	spinbox = new QDoubleSpinBox();
 	spinbox->setParent(parent);
+	spinbox->setDecimals(16);
 	spinbox->setMinimum(min);
 	spinbox->setMaximum(max);
 	spinbox->setValue(pos);
-	spinbox->setDecimals(10);
 	spinbox->setSingleStep(0.0000000001);
 
 	connect(spinbox, SIGNAL(editingFinished()), this, SLOT(useSpinbox()));
@@ -26,12 +26,12 @@ Property::~Property()
 {
 }
 
-float Property::getValue()
+double Property::getValue()
 {
 	return spinbox->value();
 }
 
-void Property::setValue(float v)
+void Property::setValue(double v)
 {
 	slider->setSliderPosition(v * scalar);
 	spinbox->setValue(v);
@@ -39,7 +39,7 @@ void Property::setValue(float v)
 
 void Property::useSlider(int action)
 {
-	spinbox->setValue(float(slider->value()) / scalar);
+	spinbox->setValue((slider->value()) / scalar);
 }
 
 void Property::useSpinbox()

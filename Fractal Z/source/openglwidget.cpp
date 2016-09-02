@@ -13,6 +13,18 @@ bool keys[1024];
 
 bool fill = true;
 
+vec2 start(0.0, 0.0);
+vec2 end(-1.7690406658, 0.0054656756);
+vec2 delta(end.x - start.x, end.y - start.y);
+vec2 halfdDelta(delta.x / 2.0, delta.y / 2.0);
+vec2 currentDelta(end.x - origin.x, end.y - origin.y);
+vec2 d(0.0, 0.0);
+int i = 0;
+bool go = false;
+double dp = 2.l / (WINDOW_HEIGHT * std::pow(2, 26));
+double speedz = 1.003l;
+double speedm = 1.01l;
+
 OpenGLWidget::OpenGLWidget(QWidget * parent)
 {
 }
@@ -52,6 +64,7 @@ void OpenGLWidget::initializeGL()
 	for (unsigned int i = 0; i < 1024; ++i)
 		keys[i] = false;
 
+	//showFullScreen();
 	drawFrame();
 }
 
@@ -76,6 +89,46 @@ void OpenGLWidget::paintGL()
 
 	fractal.endRender();
 	majorOffset -= offset;
+
+	//if (zoom < std::pow(2, 26) && !keys[Qt::Key::Key_0] && go)
+	if (go && keys[Qt::Key::Key_0])
+	{
+		double m = ((1.l - (std::abs(log2l(zoom) - 13) / 13.l)) * 0.1) + speedz;
+
+		go = false;
+
+		if (!(std::abs(currentDelta.x) < dp) || !(std::abs(currentDelta.y) < dp))
+		{
+			d = vec2(currentDelta.x - (currentDelta.x / (speedm * m)), currentDelta.y - (currentDelta.y / (speedm * m)));
+			origin.x += d.x;
+			origin.y += d.y;
+			fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+			currentDelta.x = end.x - origin.x;
+			currentDelta.y = end.y - origin.y;
+
+			go = true;
+		}
+
+		if (std::abs(log2l(double(zoom) / std::pow(2, 26))) > 0.04)
+		{
+			zoom *= m;
+			fractal.computeVariables.at(fractal.computeVariables.size() - 1)->setValue();
+
+			go = true;
+		}
+
+		rendermodeLR = ALL;
+
+		QTextStream(stdout) << m << " : " << dp << " : " << currentDelta.x << ", " << currentDelta.y << " : " << d.x << ", " << d.y << endl;
+		//this->grabFramebuffer().save(QString("video_" + QString::number(i) + ".png"));
+		++i;
+	}
+	else if (1 == 0)
+	{
+		origin = vec2(0.0, 0.0);
+		zoom = 1.f;
+		currentDelta = vec2(origin.x - start.x, origin.y - start.y);
+	}
 }
 
 void OpenGLWidget::keyPressEvent(QKeyEvent* event)
@@ -95,6 +148,20 @@ void OpenGLWidget::keyPressEvent(QKeyEvent* event)
 		fractal.computeVariables.at(fractal.computeVariables.size() - 1)->setValue();
 		rendermodeLR = ALL;
 	}
+	else if (event->key() == Qt::Key::Key_P)
+	{
+		QString file = QFileDialog::getSaveFileName(this, "Save as...", "name", "PNG (*.png);; BMP (*.bmp);;TIFF (*.tiff *.tif);; JPEG (*.jpg *.jpeg)");
+		this->grabFramebuffer().save(file);
+	}
+	else if (event->key() == Qt::Key::Key_F11)
+	{
+		if (this->windowState() == Qt::WindowState::WindowFullScreen)
+			showNormal();
+		else
+			showFullScreen();
+	}
+	else if (event->key() == Qt::Key::Key_0)
+		go = true;
 }
 
 void OpenGLWidget::keyReleaseEvent(QKeyEvent* event)
@@ -233,40 +300,34 @@ void OpenGLWidget::createFractal(QString intName, QString extName)
 
 void OpenGLWidget::getKeys()
 {
-	if (keys[Qt::Key::Key_W])
+	if (rendermodeLR != ALL)
 	{
-		origin.y += (ORIGIN_MOVE / zoom);
-		offset.setY(offset.y() + PIXEL_MOVE);
-		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+		if (keys[Qt::Key::Key_W])
+		{
+			origin.y += (ORIGIN_MOVE / zoom);
+			offset.setY(offset.y() + PIXEL_MOVE);
+			fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+		}
+		if (keys[Qt::Key::Key_S])
+		{
+			origin.y -= (ORIGIN_MOVE / zoom);
+			offset.setY(offset.y() - PIXEL_MOVE);
+			fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+		}
+		if (keys[Qt::Key::Key_A])
+		{
+			origin.x -= (ORIGIN_MOVE / zoom);
+			offset.setX(offset.x() - PIXEL_MOVE);
+			fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+		}
+		if (keys[Qt::Key::Key_D])
+		{
+			origin.x += (ORIGIN_MOVE / zoom);
+			offset.setX(offset.x() + PIXEL_MOVE);
+			fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+		}
 	}
-	if (keys[Qt::Key::Key_S])
-	{
-		origin.y -= (ORIGIN_MOVE / zoom);
-		offset.setY(offset.y() - PIXEL_MOVE);
-		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
-	}
-	if (keys[Qt::Key::Key_A])
-	{
-		origin.x -= (ORIGIN_MOVE / zoom);
-		offset.setX(offset.x() - PIXEL_MOVE);
-		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
-	}
-	if (keys[Qt::Key::Key_D])
-	{
-		origin.x += (ORIGIN_MOVE / zoom);
-		offset.setX(offset.x() + PIXEL_MOVE);
-		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
-	}
-	if (keys[Qt::Key::Key_R])
-	{
-		origin = vec2(0.0, 0.0);
-		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
-		zoom = 1.f;
-		fractal.computeVariables.at(fractal.computeVariables.size() - 1)->setValue();
-		rendermodeLR = ALL;
-	}
-	if (keys[Qt::Key::Key_C])
-		rendermodeLR = ALL;
+
 	if (keys[Qt::Key::Key_L])
 		fill = false;
 	if (keys[Qt::Key::Key_F])
@@ -296,6 +357,17 @@ void OpenGLWidget::getKeys()
 		rendermodeTB = BOTTOM;
 		offset.setY(offset.y() + BLOCK_HEIGHT);
 	}
+
+	if (keys[Qt::Key::Key_R])
+	{
+		origin = vec2(0.0, 0.0);
+		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+		zoom = 1.f;
+		fractal.computeVariables.at(fractal.computeVariables.size() - 1)->setValue();
+		rendermodeLR = ALL;
+	}
+	if (keys[Qt::Key::Key_C])
+		rendermodeLR = ALL;
 
 	if (majorOffset.x() >= IMAGE_WIDTH)
 		majorOffset.setX(majorOffset.x() - IMAGE_WIDTH);
