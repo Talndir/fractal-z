@@ -56,6 +56,12 @@
     <ClInclude Include="header\vec2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\location.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\animation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="header\openglwidget.h">
@@ -111,6 +117,9 @@
     <ClCompile Include="source\resolver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\animation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\template\template_vertex.glsl" />
@@ -131,8 +140,5 @@
     <Text Include="shaders\mandelbrot\mandelbrot_variables.txt" />
     <Text Include="shaders\julia\julia_variables.txt" />
     <Text Include="shaders\newton\newton_variables.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="minibrot.png" />
   </ItemGroup>
 </Project>

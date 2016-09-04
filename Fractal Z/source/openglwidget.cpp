@@ -64,6 +64,41 @@ void OpenGLWidget::initializeGL()
 	for (unsigned int i = 0; i < 1024; ++i)
 		keys[i] = false;
 
+	location loc;
+
+	loc.destination = vec2(-1.7690406658, 0.0054656756);
+	loc.speedMove = 1.04;
+	loc.speedZoom = 1.003;
+	loc.zoomDest = std::pow(2, 26);
+	anim.locations.push_back(loc);
+
+	loc.destination = vec2(-1.7690406658, 0.0054656756);
+	loc.speedMove = 1.0;
+	loc.speedZoom = 1.013;
+	loc.zoomDest = 1.0;
+	anim.locations.push_back(loc);
+
+	loc.destination = vec2(0.0, 0.0);
+	loc.speedMove = 1.025;
+	loc.speedZoom = 1.0;
+	loc.zoomDest = 1.0;
+	anim.locations.push_back(loc);
+
+	loc.destination = vec2(0.2639296294227568, -0.0026976800505326);
+	loc.speedMove = 1.04;
+	loc.speedZoom = 1.003;
+	loc.zoomDest = std::pow(2, 43);
+	anim.locations.push_back(loc);
+
+	loc.destination = vec2(0.0, 0.0);
+	loc.speedMove = 1.025;
+	loc.speedZoom = 1.0;
+	loc.zoomDest = 1.0;
+	anim.locations.push_back(loc);
+
+	anim.origin = &origin;
+	anim.zoom = &zoom;
+
 	//showFullScreen();
 	drawFrame();
 }
@@ -90,44 +125,12 @@ void OpenGLWidget::paintGL()
 	fractal.endRender();
 	majorOffset -= offset;
 
-	//if (zoom < std::pow(2, 26) && !keys[Qt::Key::Key_0] && go)
-	if (go && keys[Qt::Key::Key_0])
+	if (go)
 	{
-		double m = ((1.l - (std::abs(log2l(zoom) - 13) / 13.l)) * 0.1) + speedz;
-
-		go = false;
-
-		if (!(std::abs(currentDelta.x) < dp) || !(std::abs(currentDelta.y) < dp))
-		{
-			d = vec2(currentDelta.x - (currentDelta.x / (speedm * m)), currentDelta.y - (currentDelta.y / (speedm * m)));
-			origin.x += d.x;
-			origin.y += d.y;
-			fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
-			currentDelta.x = end.x - origin.x;
-			currentDelta.y = end.y - origin.y;
-
-			go = true;
-		}
-
-		if (std::abs(log2l(double(zoom) / std::pow(2, 26))) > 0.04)
-		{
-			zoom *= m;
-			fractal.computeVariables.at(fractal.computeVariables.size() - 1)->setValue();
-
-			go = true;
-		}
-
+		go = anim.nextFrame();
+		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+		fractal.computeVariables.at(fractal.computeVariables.size() - 1)->setValue();
 		rendermodeLR = ALL;
-
-		QTextStream(stdout) << m << " : " << dp << " : " << currentDelta.x << ", " << currentDelta.y << " : " << d.x << ", " << d.y << endl;
-		//this->grabFramebuffer().save(QString("video_" + QString::number(i) + ".png"));
-		++i;
-	}
-	else if (1 == 0)
-	{
-		origin = vec2(0.0, 0.0);
-		zoom = 1.f;
-		currentDelta = vec2(origin.x - start.x, origin.y - start.y);
 	}
 }
 
@@ -161,7 +164,13 @@ void OpenGLWidget::keyPressEvent(QKeyEvent* event)
 			showFullScreen();
 	}
 	else if (event->key() == Qt::Key::Key_0)
-		go = true;
+		go = !go;
+	else if (event->key() == Qt::Key::Key_9)
+	{
+		go = false;
+		anim.index = -1;
+		anim.next = true;
+	}
 }
 
 void OpenGLWidget::keyReleaseEvent(QKeyEvent* event)

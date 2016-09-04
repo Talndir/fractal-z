@@ -11,6 +11,7 @@
 
 #include "../header/external.h"
 #include "../header/fractal.h"
+#include "../header/animation.h"
 
 #include <QtWidgets/QPushButton>
 
@@ -55,4 +56,6 @@ private:
 	Fractal fractal;
 
 	QPushButton* button;
+
+	Animation anim;
 };

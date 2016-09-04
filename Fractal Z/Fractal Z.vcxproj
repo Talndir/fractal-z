@@ -11,6 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header\animation.h" />
+    <ClInclude Include="header\location.h" />
     <ClInclude Include="header\vec2.h" />
     <CustomBuild Include="header\collapsiblepanelwidget.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing collapsiblepanelwidget.h...</Message>
@@ -68,6 +70,7 @@
     <ClCompile Include="GeneratedFiles\Release\moc_property.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="source\animation.cpp" />
     <ClCompile Include="source\collapsiblepanelwidget.cpp" />
     <ClCompile Include="source\fractal.cpp" />
     <ClCompile Include="source\main.cpp" />
@@ -96,9 +99,6 @@
     <Text Include="shaders\julia\julia_variables.txt" />
     <Text Include="shaders\mandelbrot\mandelbrot_variables.txt" />
     <Text Include="shaders\newton\newton_variables.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="minibrot.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B12702AD-ABFB-343A-A199-8E24837244A3}</ProjectGuid>
