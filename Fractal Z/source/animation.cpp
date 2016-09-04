@@ -17,7 +17,7 @@ void Animation::init()
 	
 	halfDelta = vec2((keyframe->destination.x - origin->x) / 2.0, (keyframe->destination.y - origin->y) / 2.0);
 	deltaRemaining = vec2(keyframe->destination.x - origin->x, keyframe->destination.y - origin->y);
-	moveMargin = 2.0 / (WINDOW_HEIGHT * keyframe->zoomDest);
+	moveMargin = std::max(2.0 / (WINDOW_HEIGHT * keyframe->zoomDest), std::pow(10, -15));
 	zoomMargin = 0.04;
 }
 

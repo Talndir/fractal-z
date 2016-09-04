@@ -13,7 +13,7 @@ Property::Property(double min, double max, double  pos, QWidget* parent)
 
 	spinbox = new QDoubleSpinBox();
 	spinbox->setParent(parent);
-	spinbox->setDecimals(16);
+	spinbox->setDecimals(20);
 	spinbox->setMinimum(min);
 	spinbox->setMaximum(max);
 	spinbox->setValue(pos);

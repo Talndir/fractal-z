@@ -130,11 +130,18 @@ void Fractal::init()
 				for (int i = 3; i < 7; ++i)
 					v.push_back(std::atoi(data.at(i).c_str()));
 
-				addVariable(intName.c_str(), extName.c_str(), v, exp, mode);
+				if (intName == "maxIterations")
+				{
+					maxIterations = (int)v.at(0);
+					addComputeVariable(intName.c_str(), extName.c_str(), v.at(0), v.at(1), v.at(2), v.at(3), exp, &maxIterations);
+					copyComputeVariableToRender();
+				}
+				else
+					addVariable(intName.c_str(), extName.c_str(), v, exp, mode);
 			}
 			else if (type == "vec2")
 			{
-				std::vector<QVector2D> v;
+				std::vector<vec2> v;
 				for (int i = 3; i < 7; ++i)
 				{
 					std::stringstream ss2(data.at(i));
@@ -144,10 +151,13 @@ void Fractal::init()
 					while (std::getline(ss2, item2, ':'))
 						v2.push_back(std::atof(item2.c_str()));
 
-					v.push_back(QVector2D(v2.at(0), v2.at(1)));
+					v.push_back(vec2(v2.at(0), v2.at(1)));
 				}
 
-				addVariable(intName.c_str(), extName.c_str(), v, exp, mode);
+				if (intName == "origin")
+					addComputeVariable(intName.c_str(), extName.c_str(), v.at(0), v.at(1), v.at(2), v.at(3), exp, &origin);
+				else
+					addVariable(intName.c_str(), extName.c_str(), v, exp, mode);
 			}
 			else if (type == "vec3")
 			{

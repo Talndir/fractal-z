@@ -5,6 +5,9 @@ QVector2D offset(0.01f, 0.01f);
 QVector2D majorOffset(0.01f, 0.01f);
 vec2 origin(0.0, 0.0);
 float zoom = 1.f;
+int maxIterations = 100;
+
+bool autoIterations = false;
 
 ERENDERMODE rendermodeLR = ALL;
 ERENDERMODE rendermodeTB = NONE;
@@ -67,27 +70,33 @@ void OpenGLWidget::initializeGL()
 	location loc;
 
 	loc.destination = vec2(-1.7690406658, 0.0054656756);
-	loc.speedMove = 1.04;
+	loc.speedMove = 1.045;
 	loc.speedZoom = 1.003;
 	loc.zoomDest = std::pow(2, 26);
-	anim.locations.push_back(loc);
+	//anim.locations.push_back(loc);
 
 	loc.destination = vec2(-1.7690406658, 0.0054656756);
 	loc.speedMove = 1.0;
 	loc.speedZoom = 1.013;
 	loc.zoomDest = 1.0;
-	anim.locations.push_back(loc);
+	//anim.locations.push_back(loc);
 
 	loc.destination = vec2(0.0, 0.0);
 	loc.speedMove = 1.025;
 	loc.speedZoom = 1.0;
 	loc.zoomDest = 1.0;
-	anim.locations.push_back(loc);
+	//anim.locations.push_back(loc);
 
 	loc.destination = vec2(0.2639296294227568, -0.0026976800505326);
 	loc.speedMove = 1.04;
-	loc.speedZoom = 1.003;
+	loc.speedZoom = 1.013;
 	loc.zoomDest = std::pow(2, 43);
+	anim.locations.push_back(loc);
+
+	loc.destination = vec2(0.2639296294227568, -0.0026976800505326);
+	loc.speedMove = 1.0;
+	loc.speedZoom = 1.013;
+	loc.zoomDest = 1.0;
 	anim.locations.push_back(loc);
 
 	loc.destination = vec2(0.0, 0.0);
@@ -128,7 +137,7 @@ void OpenGLWidget::paintGL()
 	if (go)
 	{
 		go = anim.nextFrame();
-		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+		fractal.computeVariables.at(0)->setValue();
 		fractal.computeVariables.at(fractal.computeVariables.size() - 1)->setValue();
 		rendermodeLR = ALL;
 	}
@@ -171,6 +180,8 @@ void OpenGLWidget::keyPressEvent(QKeyEvent* event)
 		anim.index = -1;
 		anim.next = true;
 	}
+	else if (event->key() == Qt::Key::Key_I)
+		autoIterations = !autoIterations;
 }
 
 void OpenGLWidget::keyReleaseEvent(QKeyEvent* event)
@@ -191,6 +202,12 @@ void OpenGLWidget::runCompute()
 	if (rendermodeLR || rendermodeTB)
 	{
 		makeCurrent();
+
+		if (autoIterations)
+		{
+			maxIterations = std::max(100 + log2f(zoom) * 20, 10.f);
+			fractal.computeVariables.at(1)->setValue();
+		}
 
 		switch (rendermodeLR)
 		{
@@ -271,7 +288,7 @@ void OpenGLWidget::createFractal(QString intName, QString extName)
 	fractal.addComputeVariable("renderOffset", "", renderOffset, renderOffset, renderOffset, renderOffset, false, &renderOffset);
 	fractal.addComputeVariable("offset", "", majorOffset, majorOffset, majorOffset, majorOffset, false, &majorOffset);
 	fractal.copyComputeVariableToRender();
-	fractal.addComputeVariable("origin", "Origin", origin, origin, vec2(-4.f, -4.f), vec2(4.f, 4.f), true, &origin);
+	//fractal.addComputeVariable("origin", "Origin", origin, origin, vec2(-4.f, -4.f), vec2(4.f, 4.f), true, &origin);
 	fractal.addComputeVariable("ratio", "", RATIO, RATIO, RATIO, RATIO, false, &RATIO);
 	fractal.addComputeVariable("zoom", "Zoom", zoom, zoom, 0.0f, float(std::pow(2, 64)), true, &zoom);
 
@@ -315,25 +332,25 @@ void OpenGLWidget::getKeys()
 		{
 			origin.y += (ORIGIN_MOVE / zoom);
 			offset.setY(offset.y() + PIXEL_MOVE);
-			fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+			fractal.computeVariables.at(0)->setValue();
 		}
 		if (keys[Qt::Key::Key_S])
 		{
 			origin.y -= (ORIGIN_MOVE / zoom);
 			offset.setY(offset.y() - PIXEL_MOVE);
-			fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+			fractal.computeVariables.at(0)->setValue();
 		}
 		if (keys[Qt::Key::Key_A])
 		{
 			origin.x -= (ORIGIN_MOVE / zoom);
 			offset.setX(offset.x() - PIXEL_MOVE);
-			fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+			fractal.computeVariables.at(0)->setValue();
 		}
 		if (keys[Qt::Key::Key_D])
 		{
 			origin.x += (ORIGIN_MOVE / zoom);
 			offset.setX(offset.x() + PIXEL_MOVE);
-			fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+			fractal.computeVariables.at(0)->setValue();
 		}
 	}
 
@@ -370,7 +387,7 @@ void OpenGLWidget::getKeys()
 	if (keys[Qt::Key::Key_R])
 	{
 		origin = vec2(0.0, 0.0);
-		fractal.computeVariables.at(fractal.computeVariables.size() - 3)->setValue();
+		fractal.computeVariables.at(0)->setValue();
 		zoom = 1.f;
 		fractal.computeVariables.at(fractal.computeVariables.size() - 1)->setValue();
 		rendermodeLR = ALL;

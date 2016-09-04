@@ -34,6 +34,9 @@ extern QVector2D offset;
 extern QVector2D majorOffset;
 extern vec2 origin;
 extern float zoom;
+extern int maxIterations;
+
+extern bool autoIterations;
 
 extern CollapsiblePanelWidget* pane;
 extern QVBoxLayout* paneLayout;
