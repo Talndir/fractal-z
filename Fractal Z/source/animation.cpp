@@ -3,14 +3,17 @@
 
 Animation::Animation()
 {
-	index = -1;
-	next = true;
+	reset();
 
 	buttonAdd = new QPushButton("+");
 	connect(buttonAdd, SIGNAL(pressed()), this, SLOT(addLoc()));
 
 	buttonDelete = new QPushButton("-");
 	connect(buttonDelete, SIGNAL(pressed()), this, SLOT(deleteLoc()));
+
+	checkBox = new QCheckBox("Output pictures?");
+	checkBox->setChecked(false);
+	connect(checkBox, SIGNAL(stateChanged(int)), this, SLOT(getFileName(int)));
 }
 
 Animation::~Animation()
@@ -72,7 +75,25 @@ bool Animation::nextFrame()
 		next = false;
 	}
 
+	++frame;
+
+	if (checkBox->isChecked())
+	{
+		file = file2;
+		int d = file.lastIndexOf('.');
+		file.replace(d, 1, "_" + QString::number(frame) + ".");
+
+		QTextStream(stdout) << file << endl;
+	}
+
 	return true;
+}
+
+void Animation::reset()
+{
+	index = -1;
+	next = true;
+	frame = 0;
 }
 
 void Animation::addLoc()
@@ -89,8 +110,11 @@ void Animation::deleteLoc()
 	}
 
 	if (index == locations.size() - 1)
-	{
-		index = -1;
-		next = true;
-	}
+		reset();
+}
+
+void Animation::getFileName(int state)
+{
+	if (checkBox->isChecked())
+		file2 = QFileDialog::getSaveFileName(anim, "Save as...", "video", "PNG (*.png);; BMP (*.bmp);;TIFF (*.tiff *.tif);; JPEG (*.jpg *.jpeg)");
 }

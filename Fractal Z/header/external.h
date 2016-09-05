@@ -3,6 +3,7 @@
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QGroupBox>
+#include <QtCore/QTextStream>
 
 #include "../header/collapsiblepanelwidget.h"
 #include "../header/resolver.h"

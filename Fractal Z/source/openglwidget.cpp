@@ -72,6 +72,7 @@ void OpenGLWidget::initializeGL()
 
 	animLayout->addWidget(anim.buttonAdd);
 	animLayout->addWidget(anim.buttonDelete);
+	animLayout->addWidget(anim.checkBox);
 
 	for (unsigned int i = 0; i < 1024; ++i)
 		keys[i] = false;
@@ -83,43 +84,18 @@ void OpenGLWidget::initializeGL()
 	loc.speedMove = 1.045;
 	loc.speedZoom = 1.003;
 	loc.zoomDest = std::pow(2, 26);
-	//anim.locations.push_back(loc);
-
-	loc.destination = vec2(-1.7690406658, 0.0054656756);
-	loc.speedMove = 1.0;
-	loc.speedZoom = 1.013;
-	loc.zoomDest = 1.0;
-	//anim.locations.push_back(loc);
-
-	loc.destination = vec2(0.0, 0.0);
-	loc.speedMove = 1.025;
-	loc.speedZoom = 1.0;
-	loc.zoomDest = 1.0;
-	//anim.locations.push_back(loc);
+	anim.locations.push_back(loc);
 
 	loc.destination = vec2(0.2639296294227568, -0.0026976800505326);
 	loc.speedMove = 1.04;
 	loc.speedZoom = 1.013;
 	loc.zoomDest = std::pow(2, 43);
 	anim.locations.push_back(loc);
-
-	loc.destination = vec2(0.2639296294227568, -0.0026976800505326);
-	loc.speedMove = 1.0;
-	loc.speedZoom = 1.013;
-	loc.zoomDest = 1.0;
-	anim.locations.push_back(loc);
-
-	loc.destination = vec2(0.0, 0.0);
-	loc.speedMove = 1.025;
-	loc.speedZoom = 1.0;
-	loc.zoomDest = 1.0;
-	anim.locations.push_back(loc);
 	*/
 
 	anim.origin = &origin;
 	anim.zoom = &zoom;
 
-	//showFullScreen();
 	drawFrame();
 }
 
@@ -151,6 +127,9 @@ void OpenGLWidget::paintGL()
 		fractal.computeVariables.at(0)->setValue();
 		fractal.computeVariables.at(fractal.computeVariables.size() - 1)->setValue();
 		rendermodeLR = ALL;
+
+		if (anim.checkBox->isChecked())
+			this->grabFramebuffer().save(anim.file);
 	}
 }
 
@@ -173,7 +152,7 @@ void OpenGLWidget::keyPressEvent(QKeyEvent* event)
 	}
 	else if (event->key() == Qt::Key::Key_P)
 	{
-		QString file = QFileDialog::getSaveFileName(this, "Save as...", "name", "PNG (*.png);; BMP (*.bmp);;TIFF (*.tiff *.tif);; JPEG (*.jpg *.jpeg)");
+		QString file = QFileDialog::getSaveFileName(this, "Save as...", "screenshot", "PNG (*.png);; BMP (*.bmp);;TIFF (*.tiff *.tif);; JPEG (*.jpg *.jpeg)");
 		this->grabFramebuffer().save(file);
 	}
 	else if (event->key() == Qt::Key::Key_F11)
@@ -188,8 +167,7 @@ void OpenGLWidget::keyPressEvent(QKeyEvent* event)
 	else if (event->key() == Qt::Key::Key_9)
 	{
 		go = false;
-		anim.index = -1;
-		anim.next = true;
+		anim.reset();
 	}
 	else if (event->key() == Qt::Key::Key_I)
 		autoIterations = !autoIterations;
