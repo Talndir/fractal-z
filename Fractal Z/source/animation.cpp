@@ -7,7 +7,10 @@ Animation::Animation()
 	next = true;
 
 	buttonAdd = new QPushButton("+");
-	connect(buttonAdd, SIGNAL(pressed()), this, SLOT(add()));
+	connect(buttonAdd, SIGNAL(pressed()), this, SLOT(addLoc()));
+
+	buttonDelete = new QPushButton("-");
+	connect(buttonDelete, SIGNAL(pressed()), this, SLOT(deleteLoc()));
 }
 
 Animation::~Animation()
@@ -72,7 +75,22 @@ bool Animation::nextFrame()
 	return true;
 }
 
-void Animation::add()
+void Animation::addLoc()
 {
 	locations.push_back(Location());
+}
+
+void Animation::deleteLoc()
+{
+	if (locations.size())
+	{
+		animLayout->removeWidget(locations.back().box);
+		locations.pop_back();
+	}
+
+	if (index == locations.size() - 1)
+	{
+		index = -1;
+		next = true;
+	}
 }

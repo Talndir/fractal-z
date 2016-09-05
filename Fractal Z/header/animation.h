@@ -30,7 +30,9 @@ public:
 	bool next;
 
 	QPushButton* buttonAdd;
+	QPushButton* buttonDelete;
 
 public slots:
-	void add();
+	void addLoc();
+	void deleteLoc();
 };

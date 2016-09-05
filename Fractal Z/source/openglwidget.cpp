@@ -71,6 +71,7 @@ void OpenGLWidget::initializeGL()
 	updateTimer->start();
 
 	animLayout->addWidget(anim.buttonAdd);
+	animLayout->addWidget(anim.buttonDelete);
 
 	for (unsigned int i = 0; i < 1024; ++i)
 		keys[i] = false;
