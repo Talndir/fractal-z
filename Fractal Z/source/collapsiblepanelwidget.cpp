@@ -26,7 +26,7 @@ void CollapsiblePanelWidget::open()
 	closeAnimation->stop();
 
 	openAnimation->setStartValue(this->geometry());
-	float p = 1.f - float(float(this->geometry().x() + this->width()) / float(openRect->width()));
+	float p = 1.f - float(this->geometry().x() - closeRect->x()) / float(openRect->x() - closeRect->x());
 	openAnimation->setDuration(p * duration);
 
 	openAnimation->start();
@@ -37,7 +37,7 @@ void CollapsiblePanelWidget::close()
 	openAnimation->stop();
 
 	closeAnimation->setStartValue(this->geometry());
-	float p = float(float(this->geometry().x() + this->width()) / float(openRect->width()));
+	float p = float(this->geometry().x() - closeRect->x()) / float(openRect->x() - closeRect->x());
 	closeAnimation->setDuration(p * duration);
 
 	closeAnimation->start();
