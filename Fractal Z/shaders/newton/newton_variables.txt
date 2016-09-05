@@ -1,1 +1,2 @@
+vec2,origin,Origin,0.0:0.0,0.0:0.0,-2.0:-2.0,2.0:2.0,true,c
 int,maxIterations,Maximum Iterations,50,50,0,200,true,c
