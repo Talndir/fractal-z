@@ -53,21 +53,30 @@ void OpenGLWidget::initializeGL()
 
 	resizeGL(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-	button = new QPushButton(this);
-	button->setGeometry(QRect(0, 0, 25, 25));
-	button->setText("<->");
-	connect(button, SIGNAL(pressed()), pane, SLOT(toggle()));
-	button->show();
+	paneButton = new QPushButton(this);
+	paneButton->setGeometry(QRect(0, 0, 25, 25));
+	paneButton->setText("<->");
+	connect(paneButton, SIGNAL(pressed()), pane, SLOT(toggle()));
+	paneButton->show();
+
+	animButton = new QPushButton(this);
+	animButton->setGeometry(QRect(WINDOW_WIDTH - 25, 0, 25, 25));
+	animButton->setText("<->");
+	connect(animButton, SIGNAL(pressed()), ::anim, SLOT(toggle()));
+	animButton->show();
 
 	updateTimer = new QTimer(this);
 	updateTimer->setInterval(1000.f / 1000.f);
 	connect(updateTimer, SIGNAL(timeout()), this, SLOT(drawFrame()));
 	updateTimer->start();
 
+	animLayout->addWidget(anim.buttonAdd);
+
 	for (unsigned int i = 0; i < 1024; ++i)
 		keys[i] = false;
 
-	location loc;
+	/*
+	Location loc;
 
 	loc.destination = vec2(-1.7690406658, 0.0054656756);
 	loc.speedMove = 1.045;
@@ -104,6 +113,7 @@ void OpenGLWidget::initializeGL()
 	loc.speedZoom = 1.0;
 	loc.zoomDest = 1.0;
 	anim.locations.push_back(loc);
+	*/
 
 	anim.origin = &origin;
 	anim.zoom = &zoom;

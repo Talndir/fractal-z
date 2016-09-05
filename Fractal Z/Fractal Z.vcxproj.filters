@@ -59,9 +59,6 @@
     <ClInclude Include="header\location.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\animation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="header\openglwidget.h">
@@ -71,6 +68,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="header\property.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="header\animation.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -119,6 +119,15 @@
     </ClCompile>
     <ClCompile Include="source\animation.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\location.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_animation.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_animation.cpp">
+      <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

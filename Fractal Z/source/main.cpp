@@ -18,6 +18,10 @@ CollapsiblePanelWidget* pane;
 QVBoxLayout* paneLayout;
 QGroupBox* paneBox;
 
+CollapsiblePanelWidget* anim;
+QVBoxLayout* animLayout;
+QGroupBox* animBox;
+
 Resolver* r;
 
 int main(int argc, char ** argv)
@@ -50,6 +54,23 @@ int main(int argc, char ** argv)
 
 	pane->widget()->setLayout(paneLayout);
 	pane->show();
+
+	anim = new CollapsiblePanelWidget(&window);
+	anim->setStyleSheet("background-color:white");
+	anim->setWidgetResizable(true);
+	anim->setGeometry(WINDOW_WIDTH * 0.8, 0, WINDOW_WIDTH / 5, WINDOW_HEIGHT);
+	anim->duration = 500;
+	anim->config(QRect(WINDOW_WIDTH * 0.8, 0, WINDOW_WIDTH / 5, WINDOW_HEIGHT), QRect(WINDOW_WIDTH, 0, WINDOW_WIDTH / 5, WINDOW_HEIGHT));
+
+	animBox = new QGroupBox();
+	anim->setWidget(animBox);
+
+	animLayout = new QVBoxLayout();
+	animLayout->setSpacing(10);
+	animLayout->setAlignment(Qt::AlignTop);
+
+	anim->widget()->setLayout(animLayout);
+	anim->show();
 
 	window.show();
 

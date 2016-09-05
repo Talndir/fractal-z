@@ -2,10 +2,14 @@
 
 #include <vector>
 
+#include <QtWidgets/QPushButton>
+
 #include "../header/location.h"
 
-class Animation
+class Animation : public QObject
 {
+	Q_OBJECT
+
 public:
 	Animation();
 	~Animation();
@@ -13,8 +17,8 @@ public:
 	void init();
 	bool nextFrame();
 
-	std::vector<location> locations;
-	location* keyframe;
+	std::vector<Location> locations;
+	Location* keyframe;
 	vec2 halfDelta;
 	vec2 deltaRemaining;
 	double moveMargin;
@@ -24,4 +28,9 @@ public:
 	vec2* origin;
 	unsigned int index;
 	bool next;
+
+	QPushButton* buttonAdd;
+
+public slots:
+	void add();
 };

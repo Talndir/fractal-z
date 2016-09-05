@@ -42,4 +42,8 @@ extern CollapsiblePanelWidget* pane;
 extern QVBoxLayout* paneLayout;
 extern QGroupBox* paneBox;
 
+extern CollapsiblePanelWidget* anim;
+extern QVBoxLayout* animLayout;
+extern QGroupBox* animBox;
+
 extern Resolver* r;

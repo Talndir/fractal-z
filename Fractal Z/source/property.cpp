@@ -1,5 +1,5 @@
 #include "../header/property.h"
-#include <QtCore/QTextStream>
+
 Property::Property(double min, double max, double  pos, QWidget* parent)
 {
 	slider = new QSlider();

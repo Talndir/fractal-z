@@ -55,7 +55,8 @@ private:
 
 	Fractal fractal;
 
-	QPushButton* button;
+	QPushButton* paneButton;
+	QPushButton* animButton;
 
 	Animation anim;
 };

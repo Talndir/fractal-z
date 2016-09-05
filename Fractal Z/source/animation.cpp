@@ -5,6 +5,9 @@ Animation::Animation()
 {
 	index = -1;
 	next = true;
+
+	buttonAdd = new QPushButton("+");
+	connect(buttonAdd, SIGNAL(pressed()), this, SLOT(add()));
 }
 
 Animation::~Animation()
@@ -14,6 +17,8 @@ Animation::~Animation()
 void Animation::init()
 {
 	keyframe = &locations.at(index);
+
+	keyframe->init();
 	
 	halfDelta = vec2((keyframe->destination.x - origin->x) / 2.0, (keyframe->destination.y - origin->y) / 2.0);
 	deltaRemaining = vec2(keyframe->destination.x - origin->x, keyframe->destination.y - origin->y);
@@ -65,4 +70,9 @@ bool Animation::nextFrame()
 	}
 
 	return true;
+}
+
+void Animation::add()
+{
+	locations.push_back(Location());
 }
