@@ -30,6 +30,7 @@ double speedm = 1.01l;
 
 OpenGLWidget::OpenGLWidget(QWidget * parent)
 {
+	animButton = new QPushButton(this);
 }
 
 void OpenGLWidget::initializeGL()
@@ -59,7 +60,7 @@ void OpenGLWidget::initializeGL()
 	connect(paneButton, SIGNAL(pressed()), pane, SLOT(toggle()));
 	paneButton->show();
 
-	animButton = new QPushButton(this);
+	animButton->raise();
 	animButton->setGeometry(QRect(WINDOW_WIDTH - 25, 0, 25, 25));
 	animButton->setText("<->");
 	connect(animButton, SIGNAL(pressed()), ::anim, SLOT(toggle()));
@@ -76,22 +77,6 @@ void OpenGLWidget::initializeGL()
 
 	for (unsigned int i = 0; i < 1024; ++i)
 		keys[i] = false;
-
-	/*
-	Location loc;
-
-	loc.destination = vec2(-1.7690406658, 0.0054656756);
-	loc.speedMove = 1.045;
-	loc.speedZoom = 1.003;
-	loc.zoomDest = std::pow(2, 26);
-	anim.locations.push_back(loc);
-
-	loc.destination = vec2(0.2639296294227568, -0.0026976800505326);
-	loc.speedMove = 1.04;
-	loc.speedZoom = 1.013;
-	loc.zoomDest = std::pow(2, 43);
-	anim.locations.push_back(loc);
-	*/
 
 	anim.origin = &origin;
 	anim.zoom = &zoom;
@@ -403,6 +388,8 @@ void OpenGLWidget::resizeGL(int w, int h)
 	IMAGE_HEIGHT = BLOCKS_TOTAL_VERTICAL * BLOCK_HEIGHT;
 
 	pane->config(QRect(0, 0, WINDOW_WIDTH / 5, WINDOW_HEIGHT), QRect(-WINDOW_WIDTH / 5, 0, WINDOW_WIDTH / 5, WINDOW_HEIGHT));
+	::anim->config(QRect(WINDOW_WIDTH * 0.8, 0, WINDOW_WIDTH / 5, WINDOW_HEIGHT), QRect(WINDOW_WIDTH, 0, WINDOW_WIDTH / 5, WINDOW_HEIGHT));
+	animButton->setGeometry(QRect(WINDOW_WIDTH - 25, 0, 25, 25));
 
 	// Create block vertices
 	{
