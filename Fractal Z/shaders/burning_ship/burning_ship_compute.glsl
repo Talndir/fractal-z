@@ -1,5 +1,3 @@
-uniform int maxIterations;
-
 float compute(dvec2 pos)
 {
 	dvec2 z = vec2(0.0f, 0.0f);

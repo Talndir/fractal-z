@@ -1,4 +1,3 @@
-uniform int maxIterations;
 uniform dvec2 c;
 
 float compute(dvec2 pos)

@@ -19,6 +19,7 @@ uniform vec2 offset;
 uniform dvec2 origin;
 uniform float ratio;
 uniform float zoom;
+uniform int maxIterations;
 
 // Standard functions
 

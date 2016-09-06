@@ -49,7 +49,7 @@ void OpenGLWidget::initializeGL()
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	// Shaders
-	createFractal("burning_ship_power", "Mandelbrot Set");
+	createFractal("mandelbrot", "Mandelbrot Set");
 
 	resizeGL(WINDOW_WIDTH, WINDOW_HEIGHT);
 
