@@ -1,0 +1,6 @@
+vec2,origin,Origin,0.0:0.0,0.0:0.0,-2.0:-2.0,2.0:2.0,true,c
+int,maxIterations,Maximum Iterations,100,100,0,5000,true,C
+vec2,c,Seed,0.0:0.0,0.0:0.0,-2.0:-2.0,2.0:2.0,true,c
+int,power,Power of Z,3,3,0,20,true,c
+float,colourScale,Colour Scaling,1.0,1.0,0.0,10.0,true,r
+float,colourOffset,Colour Offset,0.0,0.0,0.0,1.0,true,r

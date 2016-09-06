@@ -146,11 +146,17 @@
     <None Include="shaders\newton\newton_fragment.glsl" />
     <None Include="shaders\burning_ship\burning_ship_compute.glsl" />
     <None Include="shaders\burning_ship\burning_ship_fragment.glsl" />
+    <None Include="shaders\mandelbrot_power\mandelbrot_power_compute.glsl" />
+    <None Include="shaders\mandelbrot_power\mandelbrot_power_fragment.glsl" />
+    <None Include="shaders\julia_power\julia_power_compute.glsl" />
+    <None Include="shaders\julia_power\julia_power_fragment.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="shaders\mandelbrot\mandelbrot_variables.txt" />
     <Text Include="shaders\julia\julia_variables.txt" />
     <Text Include="shaders\newton\newton_variables.txt" />
     <Text Include="shaders\burning_ship\burning_ship_variables.txt" />
+    <Text Include="shaders\mandelbrot_power\mandelbrot_power_variables.txt" />
+    <Text Include="shaders\julia_power\julia_power_variables.txt" />
   </ItemGroup>
 </Project>
