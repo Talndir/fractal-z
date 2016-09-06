@@ -1,3 +1,4 @@
+uniform int maxIterations;
 uniform dvec2 c;
 uniform int power;
 
