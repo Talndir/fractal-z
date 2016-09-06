@@ -97,6 +97,8 @@
     <ClCompile Include="source\variableabstract.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="shaders\burning_ship\burning_ship_compute.glsl" />
+    <None Include="shaders\burning_ship\burning_ship_fragment.glsl" />
     <None Include="shaders\julia\julia_compute.glsl" />
     <None Include="shaders\julia\julia_fragment.glsl" />
     <None Include="shaders\mandelbrot\mandelbrot_compute.glsl" />
@@ -112,6 +114,7 @@
     <None Include="shaders\template\template_vertex.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="shaders\burning_ship\burning_ship_variables.txt" />
     <Text Include="shaders\julia\julia_variables.txt" />
     <Text Include="shaders\mandelbrot\mandelbrot_variables.txt" />
     <Text Include="shaders\newton\newton_variables.txt" />
