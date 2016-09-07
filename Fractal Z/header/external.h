@@ -3,10 +3,12 @@
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QGroupBox>
+#include <QtWidgets/QComboBox>
 #include <QtCore/QTextStream>
 
 #include "../header/collapsiblepanelwidget.h"
 #include "../header/resolver.h"
+#include "../header/shaderfinder.h"
 
 extern int WINDOW_WIDTH;															// Window width in pixels
 extern int WINDOW_HEIGHT;															// Window height in pixels
@@ -46,5 +48,7 @@ extern QGroupBox* paneBox;
 extern CollapsiblePanelWidget* anim;
 extern QVBoxLayout* animLayout;
 extern QGroupBox* animBox;
+
+extern ShaderFinder* selector;
 
 extern Resolver* r;

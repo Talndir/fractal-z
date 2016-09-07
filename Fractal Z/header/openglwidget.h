@@ -27,13 +27,13 @@ public:
 	void resizeGL(int w, int h) Q_DECL_OVERRIDE;
 
 	void runCompute();
-	void createFractal(QString intName, QString extName);
 	void getKeys();
 
 	Resolver* resolver;
 
 public slots:
 	void drawFrame();
+	void createFractal(QString intName, QString extName);
 
 protected:
 	void keyPressEvent(QKeyEvent* event) Q_DECL_OVERRIDE;

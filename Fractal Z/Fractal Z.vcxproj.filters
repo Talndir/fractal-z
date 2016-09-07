@@ -73,6 +73,9 @@
     <CustomBuild Include="header\animation.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="header\shaderfinder.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">
@@ -129,6 +132,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_animation.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="source\shaderfinder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_shaderfinder.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_shaderfinder.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\template\template_vertex.glsl" />
@@ -158,5 +170,6 @@
     <Text Include="shaders\burning_ship\burning_ship_variables.txt" />
     <Text Include="shaders\mandelbrot_power\mandelbrot_power_variables.txt" />
     <Text Include="shaders\julia_power\julia_power_variables.txt" />
+    <Text Include="shaders\burning_ship\burning_ship_info.txt" />
   </ItemGroup>
 </Project>

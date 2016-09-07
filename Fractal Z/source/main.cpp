@@ -3,6 +3,7 @@
 #endif
 
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QAction>
 
 #include "../header/openglwidget.h"
 
@@ -22,6 +23,8 @@ CollapsiblePanelWidget* anim;
 QVBoxLayout* animLayout;
 QGroupBox* animBox;
 
+ShaderFinder* selector;
+
 Resolver* r;
 
 int main(int argc, char ** argv)
@@ -38,6 +41,8 @@ int main(int argc, char ** argv)
 	window.setFormat(format);
 	window.resize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
+	selector = new ShaderFinder();
+
 	pane = new CollapsiblePanelWidget(&window);
 	pane->setStyleSheet("background-color:white");
 	pane->setWidgetResizable(true);
@@ -51,6 +56,7 @@ int main(int argc, char ** argv)
 	paneLayout = new QVBoxLayout();
 	paneLayout->setSpacing(10);
 	paneLayout->setAlignment(Qt::AlignTop);
+	paneLayout->addWidget(selector);
 
 	pane->widget()->setLayout(paneLayout);
 	pane->show();

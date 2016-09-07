@@ -38,6 +38,8 @@ void OpenGLWidget::initializeGL()
 	resolver = new Resolver();
 	r = resolver;
 
+	connect(selector, SIGNAL(useShader(QString, QString)), this, SLOT(createFractal(QString, QString)));
+
 	initializeOpenGLFunctions();
 
 	glClearColor(0.0f, 0.5f, 1.0f, 1.0f);
@@ -50,8 +52,8 @@ void OpenGLWidget::initializeGL()
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	// Shaders
-	createFractal("burning_ship_power", "Mandelbrot Set");
-
+	createFractal("mandelbrot", "Mandelbrot Set");
+	
 	resizeGL(WINDOW_WIDTH, WINDOW_HEIGHT);
 
 	paneButton = new QPushButton(this);
@@ -230,14 +232,20 @@ void OpenGLWidget::runCompute()
 
 void OpenGLWidget::createFractal(QString intName, QString extName)
 {
-	delete paneLayout;
+	pane = new CollapsiblePanelWidget(this);
+	pane->setStyleSheet("background-color:white");
+	pane->setWidgetResizable(true);
+	pane->setGeometry(0, 0, WINDOW_WIDTH / 5, WINDOW_HEIGHT);
+	pane->duration = 500;
+	pane->config(QRect(0, 0, WINDOW_WIDTH / 5, WINDOW_HEIGHT), QRect(-WINDOW_WIDTH / 5, 0, WINDOW_WIDTH / 5, WINDOW_HEIGHT));
+
+	paneBox = new QGroupBox();
+	pane->setWidget(paneBox);
+
 	paneLayout = new QVBoxLayout();
 	paneLayout->setSpacing(10);
 	paneLayout->setAlignment(Qt::AlignTop);
-
-	delete paneBox;
-	paneBox = new QGroupBox();
-	pane->setWidget(paneBox);
+	paneLayout->addWidget(selector);
 
 	pane->widget()->setLayout(paneLayout);
 	pane->show();
@@ -262,10 +270,9 @@ void OpenGLWidget::createFractal(QString intName, QString extName)
 	fractal.addComputeVariable("renderOffset", "", renderOffset, renderOffset, renderOffset, renderOffset, false, &renderOffset);
 	fractal.addComputeVariable("offset", "", majorOffset, majorOffset, majorOffset, majorOffset, false, &majorOffset);
 	fractal.copyComputeVariableToRender();
-	//fractal.addComputeVariable("origin", "Origin", origin, origin, vec2(-4.f, -4.f), vec2(4.f, 4.f), true, &origin);
 	fractal.addComputeVariable("ratio", "", RATIO, RATIO, RATIO, RATIO, false, &RATIO);
 	fractal.addComputeVariable("zoom", "Zoom", zoom, zoom, 0.0f, float(std::pow(2, 64)), true, &zoom);
-
+	
 	m_vao.bind();
 
 	m_vvbo.create();
@@ -282,7 +289,7 @@ void OpenGLWidget::createFractal(QString intName, QString extName)
 
 	m_vvbo.release();
 	m_ebo.release();
-
+	
 	fractal.computeProgram->bind();
 	glBindImageTexture(0, tex[0], 0, GL_FALSE, 0, GL_READ_WRITE, GL_R32F);
 	fractal.computeProgram->release();
@@ -296,6 +303,8 @@ void OpenGLWidget::createFractal(QString intName, QString extName)
 	m_vao.release();
 	glBindImageTexture(0, tex[0], 0, GL_FALSE, 0, GL_READ_WRITE, GL_R32F);
 	fractal.renderProgram->release();
+
+	rendermodeLR = ALL;
 }
 
 void OpenGLWidget::getKeys()
@@ -443,7 +452,6 @@ void OpenGLWidget::resizeGL(int w, int h)
 	m_vvbo.bind();
 	m_vvbo.setUsagePattern(QOpenGLBuffer::StaticDraw);
 	m_vvbo.allocate(vertices.data(), vertices.size() * sizeof(float));
-	
 
 	QOpenGLBuffer m_ebo(QOpenGLBuffer::IndexBuffer);
 	m_ebo.create();
