@@ -22,6 +22,8 @@ uniform float zoom;
 
 // Standard functions
 
+#define PI 3.1415926535897932384626433832795
+
 // Double exp
 double exp(double a)
 {
