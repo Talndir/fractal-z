@@ -22,6 +22,36 @@ uniform float zoom;
 
 // Standard functions
 
+// Double exp
+double exp(double a)
+{
+	return exp(float(a));
+}
+
+// Double cosine
+double cos(double a)
+{
+	return cos(float(a));
+}
+
+// Double sine
+double sin(double a)
+{
+	return sin(float(a));
+}
+
+// Hyperbolic cosine
+double cosh(double a)
+{
+	return (exp(a) + exp(-a)) / 2.0;
+}
+
+// Hyperbolic sine
+double sinh(double a)
+{
+	return (exp(a) - exp(-a)) / 2.0;
+}
+
 // Multiply two complex numbers
 dvec2 complexMultiply(dvec2 a, dvec2 b)
 {
@@ -59,6 +89,30 @@ double complexMagnitude(dvec2 a)
 dvec2 complexSquare(dvec2 a)
 {
 	return dvec2((a.x * a.x) - (a.y * a.y), 2 * a.x * a.y);
+}
+
+// Complex cosine
+dvec2 complexCos(dvec2 a)
+{
+	return dvec2(cos(a.x) * cosh(a.y), -1 * sin(a.x) * sinh(a.y));
+}
+
+// Complex sine
+dvec2 complexSin(dvec2 a)
+{
+	return dvec2(sin(a.x) * cosh(a.y), cos(a.x) * sinh(a.y));
+}
+
+// Complex hyperbolic cosine
+dvec2 complexCosh(dvec2 a)
+{
+	return dvec2(cosh(a.x) * cos(a.y), sinh(a.x) * sin(a.y));
+}
+
+// Complex hyperbolic sine
+dvec2 complexSinh(dvec2 a)
+{
+	return dvec2(sinh(a.x) * cos(a.y), cosh(a.x) * sin(a.y));
 }
 
 /* BEGIN USER CODE */
