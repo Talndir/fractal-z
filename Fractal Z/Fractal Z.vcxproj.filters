@@ -162,6 +162,8 @@
     <None Include="shaders\mandelbrot_power\mandelbrot_power_fragment.glsl" />
     <None Include="shaders\julia_power\julia_power_compute.glsl" />
     <None Include="shaders\julia_power\julia_power_fragment.glsl" />
+    <None Include="shaders\collatz\collatz_compute.glsl" />
+    <None Include="shaders\collatz\collatz_fragment.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="shaders\mandelbrot\mandelbrot_variables.txt" />
@@ -171,5 +173,12 @@
     <Text Include="shaders\mandelbrot_power\mandelbrot_power_variables.txt" />
     <Text Include="shaders\julia_power\julia_power_variables.txt" />
     <Text Include="shaders\burning_ship\burning_ship_info.txt" />
+    <Text Include="shaders\julia\julia_info.txt" />
+    <Text Include="shaders\julia_power\julia_power_info.txt" />
+    <Text Include="shaders\mandelbrot\mandelbrot_info.txt" />
+    <Text Include="shaders\mandelbrot_power\mandelbrot_power_info.txt" />
+    <Text Include="shaders\newton\newton_info.txt" />
+    <Text Include="shaders\collatz\collatz_info.txt" />
+    <Text Include="shaders\collatz\collatz_variables.txt" />
   </ItemGroup>
 </Project>
