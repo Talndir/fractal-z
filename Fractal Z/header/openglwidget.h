@@ -59,4 +59,6 @@ private:
 	QPushButton* animButton;
 
 	Animation anim;
+
+	bool consoleHidden = true;
 };

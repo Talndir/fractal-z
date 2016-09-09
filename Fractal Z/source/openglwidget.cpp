@@ -158,6 +158,15 @@ void OpenGLWidget::keyPressEvent(QKeyEvent* event)
 	}
 	else if (event->key() == Qt::Key::Key_I)
 		autoIterations = !autoIterations;
+	else if (event->key() == Qt::Key::Key_F8)
+	{
+		if (consoleHidden)
+			ShowWindow(GetConsoleWindow(), SW_SHOW);
+		else
+			ShowWindow(GetConsoleWindow(), SW_HIDE);
+
+		consoleHidden = !consoleHidden;
+	}
 }
 
 void OpenGLWidget::keyReleaseEvent(QKeyEvent* event)

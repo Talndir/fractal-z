@@ -29,6 +29,8 @@ Resolver* r;
 
 int main(int argc, char ** argv)
 {
+	ShowWindow(GetConsoleWindow(), SW_HIDE);
+
 	QApplication app(argc, argv);
 
 	QSurfaceFormat format;
