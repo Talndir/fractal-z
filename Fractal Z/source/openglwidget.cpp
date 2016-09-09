@@ -82,6 +82,7 @@ void OpenGLWidget::initializeGL()
 
 	anim.origin = &origin;
 	anim.zoom = &zoom;
+	anim.maxIterations = &maxIterations;
 
 	drawFrame();
 }
@@ -112,6 +113,7 @@ void OpenGLWidget::paintGL()
 	{
 		go = anim.nextFrame();
 		fractal.computeVariables.at(0)->setValue();
+		fractal.computeVariables.at(1)->setValue();
 		fractal.computeVariables.at(fractal.computeVariables.size() - 1)->setValue();
 		rendermodeLR = ALL;
 

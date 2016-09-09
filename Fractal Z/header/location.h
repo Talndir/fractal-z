@@ -18,14 +18,17 @@ public:
 	double speedZoom;
 	double speedMove;
 	float zoomDest;
+	int iterations;
 
 	QDoubleSpinBox* ox, * oy;
 	QDoubleSpinBox* sm, * sz;
 	QDoubleSpinBox* zd;
+	QDoubleSpinBox* it;
 
 	QLabel* originLabel;
 	QLabel* speedLabel;
 	QLabel* zoomLabel;
+	QLabel* itLabel;
 
 	QGroupBox* box;
 	QVBoxLayout* layout;

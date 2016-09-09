@@ -27,8 +27,10 @@ public:
 	double moveMargin;
 	double zoomMargin;
 	float prevZoom;
+	int prevIt;
 	float* zoom;
 	vec2* origin;
+	int* maxIterations;
 	unsigned int index;
 	bool next;
 	int frame;

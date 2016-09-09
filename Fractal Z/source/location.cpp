@@ -32,9 +32,16 @@ Location::Location()
 	zd->setRange(0, std::pow(2, 63));
 	zd->setSingleStep(1);
 
+	it = new QDoubleSpinBox();
+	it->setDecimals(0);
+	it->setValue(100);
+	it->setRange(0, 2000);
+	it->setSingleStep(1);
+
 	originLabel = new QLabel("Origin x/y");
 	speedLabel = new QLabel("Move/Zoom speed");
 	zoomLabel = new QLabel("Target zoom level");
+	itLabel = new QLabel("Target iterations");
 
 	layout = new QVBoxLayout();
 	layout->addWidget(originLabel);
@@ -45,6 +52,8 @@ Location::Location()
 	layout->addWidget(sz);
 	layout->addWidget(zoomLabel);
 	layout->addWidget(zd);
+	layout->addWidget(itLabel);
+	layout->addWidget(it);
 
 	box = new QGroupBox();
 	box->setAlignment(Qt::AlignCenter);
@@ -66,4 +75,5 @@ void Location::init()
 	speedMove = sm->value();
 	speedZoom = sz->value();
 	zoomDest = zd->value();
+	iterations = it->value();
 }

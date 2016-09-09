@@ -25,11 +25,12 @@ void Animation::init()
 	keyframe = &locations.at(index);
 
 	keyframe->init();
-	
+
 	halfDelta = vec2((keyframe->destination.x - origin->x) / 2.0, (keyframe->destination.y - origin->y) / 2.0);
 	deltaRemaining = vec2(keyframe->destination.x - origin->x, keyframe->destination.y - origin->y);
 	moveMargin = std::max(2.0 / (WINDOW_HEIGHT * keyframe->zoomDest), std::pow(10, -15));
 	zoomMargin = 0.04;
+	prevIt = *maxIterations;
 }
 
 bool Animation::nextFrame()
@@ -71,6 +72,11 @@ bool Animation::nextFrame()
 	if (std::abs(z1 - z2) > zoomMargin)
 	{
 		*zoom *= m;
+
+		//if (keyframe->iterations > prevIt)
+			*maxIterations = ((keyframe->iterations - prevIt) * (1.0 - ((std::abs(z2 - z1)) / std::abs(z2 - prevZoom)))) + prevIt;
+		//else
+			//*maxIterations = ((keyframe->iterations - prevIt) * ((std::abs(z2 - z1)) / std::abs(z2 - prevZoom))) + prevIt;
 
 		next = false;
 	}
