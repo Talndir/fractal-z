@@ -384,6 +384,8 @@ void OpenGLWidget::getKeys()
 		fractal.computeVariables.at(0)->setValue();
 		zoom = 1.f;
 		fractal.computeVariables.at(fractal.computeVariables.size() - 1)->setValue();
+		maxIterations = 100;
+		fractal.computeVariables.at(1)->setValue();
 		rendermodeLR = ALL;
 	}
 	if (keys[Qt::Key::Key_C])
