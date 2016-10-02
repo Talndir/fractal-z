@@ -1,26 +1,5 @@
 uniform int maxIterations;
 
-// Multiply two complex numbers
-dvec2 complexMultiply(dvec2 a, dvec2 b)
-{
-	double r = (a.x * b.x) - (a.y * b.y);	// Compute real part
-	double i = (a.x * b.y) + (a.y * b.x);	// Cmopute imaginary part
-
-	return dvec2(r, i);
-}
-
-// Divide two complex numbers (rationalise denominator, divide)
-dvec2 complexDivide(dvec2 a, dvec2 b)
-{
-	dvec2 rat = dvec2(b.x, -b.y);							// Conjugate of denominator
-	dvec2 denominator = complexMultiply(rat, b);			// Multiply denominator by conjugate
-	double divisor = denominator.x;
-	a = complexMultiply(a, rat);
-	dvec2 result = dvec2(a.x / divisor, a.y / divisor);		// Divide
-
-	return result;
-}
-
 // This is the function being used
 // f(z) = z^4 - 1
 dvec2 calcFx(dvec2 a)
@@ -115,6 +94,7 @@ float compute(dvec2 pos)
 
 	// Combine shade and iteration count in a single variable so they can be extracted later
 	shade = floor(shade * 100) * 10;
+	shade = 500;
 	++root;
 
 	return float(root + shade);
