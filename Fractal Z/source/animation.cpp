@@ -111,7 +111,8 @@ void Animation::deleteLoc()
 {
 	if (locations.size())
 	{
-		animLayout->removeWidget(locations.back().box);
+		animLayout->takeAt(animLayout->count() - 1)->widget()->deleteLater();
+		//animLayout->removeWidget(locations.back().box);
 		locations.pop_back();
 	}
 
