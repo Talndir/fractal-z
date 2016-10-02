@@ -243,23 +243,10 @@ void OpenGLWidget::runCompute()
 
 void OpenGLWidget::createFractal(QString intName, QString extName)
 {
-	pane = new CollapsiblePanelWidget(this);
-	pane->setStyleSheet("background-color:white");
-	pane->setWidgetResizable(true);
-	pane->setGeometry(0, 0, WINDOW_WIDTH / 5, WINDOW_HEIGHT);
-	pane->duration = 500;
-	pane->config(QRect(0, 0, WINDOW_WIDTH / 5, WINDOW_HEIGHT), QRect(-WINDOW_WIDTH / 5, 0, WINDOW_WIDTH / 5, WINDOW_HEIGHT));
-
-	paneBox = new QGroupBox();
-	pane->setWidget(paneBox);
-
-	paneLayout = new QVBoxLayout();
-	paneLayout->setSpacing(10);
-	paneLayout->setAlignment(Qt::AlignTop);
+	QLayoutItem* child;
+	while ((child = paneLayout->takeAt(0)) != 0)
+		child->widget()->deleteLater();
 	paneLayout->addWidget(selector);
-
-	pane->widget()->setLayout(paneLayout);
-	pane->show();
 
 	fractal = Fractal(intName, extName);
 	
